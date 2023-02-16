@@ -25,14 +25,15 @@ router.post('/register', async (req: Request, res: Response) => {
     }
     else {
         if(await AadharVerifier(req.body) && !(await checkAlreadyRegistered(req.body))) {
-            const keyPair = await generatePublicPrivateKeyPair();
+            const keyPair: any = await generatePublicPrivateKeyPair();
             // considering 3 days of key retention period is pretty generous (btw open for suggessions)
             const timePair = generateExiprationDate(3);
             const data = {
                 keypair: keyPair,
                 time: timePair,
-                sign: signData({keypair: keyPair, time: timePair})
+                sign: signData({publicKey: keyPair.publicKey, time: timePair})
             }
+            // console.log(JSON.stringify({publicKey: keyPair.publicKey, time: timePair}))
 
             updateRegistrationInfo(data)
             .then(() => {
