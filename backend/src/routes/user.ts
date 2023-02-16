@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 
 import { registerBodyValidator } from "../helpers/bodyValidators";
-import { AadharVerifier, checkAlreadyRegistered, generatePublicPrivateKeyPair, genrateExiprationDate, returnPublicKey, signData, updateRegistrationInfo } from "../controllers/user";
+import { AadharVerifier, checkAlreadyRegistered, generatePublicPrivateKeyPair, generateExiprationDate, returnPublicKey, signData, updateRegistrationInfo } from "../controllers/user";
 
 export const router: Router = Router();
 
@@ -26,7 +26,8 @@ router.post('/register', async (req: Request, res: Response) => {
     else {
         if(await AadharVerifier(req.body) && !(await checkAlreadyRegistered(req.body))) {
             const keyPair = await generatePublicPrivateKeyPair();
-            const timePair = genrateExiprationDate(3);
+            // considering 3 days of key retention period is pretty generous (btw open for suggessions)
+            const timePair = generateExiprationDate(3);
             const data = {
                 keypair: keyPair,
                 time: timePair,

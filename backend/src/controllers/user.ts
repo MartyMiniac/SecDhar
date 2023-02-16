@@ -63,7 +63,7 @@ export const signData = (data: any) => {
  * generates creation date and expiration date info
  * @param validityPeriod validity period of the public key private key pair in number of days
  */
-export const genrateExiprationDate = (validityPeriod: number) => {
+export const generateExiprationDate = (validityPeriod: number) => {
     const currTime = new Date();
     const expTime = new Date();
     expTime.setDate(currTime.getDate()+validityPeriod);
