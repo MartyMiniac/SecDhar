@@ -2,6 +2,9 @@ import { generateKeyPair, createHash, createPrivateKey, createSign } from "crypt
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
+import { User } from "../models/user";
+import { Key } from "../models/key";
+
 /**
  * generates the rsa public private key pair
  */
@@ -37,7 +40,7 @@ export const generatePublicPrivateKeyPair = () => {
  * hashes the supplied info
  * @param data aadhar info needed to be hashed
  */
-const hashInfo = (data: any) => {
+export const hashInfo = (data: any) => {
     return createHash('md5').update(JSON.stringify(data)).digest('hex');
 }
 
@@ -88,10 +91,18 @@ export const AadharVerifier = (data: any) => {
  * @param data aadhar data needed to be check for registration
  */
 export const checkAlreadyRegistered = (data: any) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         const hash = hashInfo(data);
+        const results = await User.find({
+            dataHash: hash
+        })
+        if(results.length==0) {
+            resolve(false);
+        }
+        else {
+            resolve(true)
+        }
         // console.log(hash);
-        resolve(false);
     });
 }
 
@@ -100,7 +111,21 @@ export const checkAlreadyRegistered = (data: any) => {
  * @param data userInfo required to be updated to the database
  */
 export const updateRegistrationInfo = (data: any) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+        let usr = new User({
+            dataHash: data.dataHash,
+            publicKey: data.keypair.publicKey
+        });
+        usr = await usr.save()
+
+        const k = new Key({
+            publicKey: data.keypair.publicKey,
+            creationTime: data.time.creationTime,
+            expirationTime: data.time.expiryTime,
+            uid: usr._id
+        })
+        await k.save()
+
         resolve(true);
     });
 }
