@@ -1,4 +1,5 @@
 export interface IRefreshRequest {
     uid: string,
-    secret: string
+    secret: string,
+    expired: boolean
 }

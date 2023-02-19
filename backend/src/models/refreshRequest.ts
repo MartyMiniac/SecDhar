@@ -9,6 +9,10 @@ const refreshRequestSchema = new Schema<IRefreshRequest>({
     secret: {
         type: String,
         required: true
+    },
+    expired: {
+        type: Boolean,
+        default: false
     }
 });
 

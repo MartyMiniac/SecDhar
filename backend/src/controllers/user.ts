@@ -151,7 +151,6 @@ export const requestRefresh = (hash: any) => {
         }
         else {
             const secret = generateRandomString(20);
-            console.log(secret);
             let rqst = new RefreshRequest({
                 uid: usr._id,
                 secret: secret
@@ -195,12 +194,21 @@ const updateExpiry = (uid: string) => {
 
 export const issueRefresh = (body: any) => {
     return new Promise(async (resolve, reject) => {
-        const req = await RefreshRequest.findById(body.requestID);
+        const req = await RefreshRequest.findByIdAndUpdate(body.requestID, {
+            expired: true
+        });
         if(req===null) {
             resolve({
                 success: false,
                 message: 'requestID not found',
                 code: 301
+            })
+        }
+        if(req?.expired===true) {
+            resolve({
+                success: false,
+                message: 'request expired please issue a new request',
+                code: 302
             })
         }
 
@@ -211,7 +219,7 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'user not found',
-                code: 302
+                code: 303
             })
         }
 
@@ -219,7 +227,7 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'user not linked to the request id',
-                code: 303
+                code: 304
             })
         }
 
@@ -233,7 +241,7 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'incorrect secret',
-                code: 304
+                code: 305
             })
         }
     })
