@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 
-import { registerBodyValidator } from "../helpers/bodyValidators";
-import { AadharVerifier, checkAlreadyRegistered, generatePublicPrivateKeyPair, generateExiprationDate, returnPublicKey, signData, updateRegistrationInfo, hashInfo } from "../controllers/user";
+import { registerBodyValidator, requestRefreshValidator, issueRefreshValidator } from "../helpers/bodyValidators";
+import { AadharVerifier, checkAlreadyRegistered, generatePublicPrivateKeyPair, generateExiprationDate, returnPublicKey, signData, updateRegistrationInfo, hashInfo, requestRefresh, issueRefresh } from "../controllers/user";
 
 export const router: Router = Router();
 
@@ -64,4 +64,50 @@ router.get('/getPublicKey', (req: Request, res: Response) => {
     return res.json({
         publicKey: returnPublicKey()
     })
+})
+
+router.post('/requestRefresh', (req: Request, res: Response) => {
+    if(!requestRefreshValidator(req.body)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Requested Information dataHash not found'
+        })
+    }
+    else {
+        requestRefresh(req.body.dataHash)
+        .then((data: any) => {
+            if(data.success===true) {
+                return res.json({
+                    requestID: data.requestID,
+                    encSecret: data.encSecret
+                })
+            }
+            else {
+                return res.sendStatus(404)
+            }
+        })
+    }
+})
+
+router.post('/issueRefresh', (req: Request, res: Response) => {
+    if(!issueRefreshValidator(req.body)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Requested Information dataHash, decString and requestID not found'
+        })
+    }
+    else {
+        issueRefresh(req.body)
+        .then((data: any) => {
+            if(data.success===true) {
+                return res.json(data.data);
+            }
+            else {
+                return res.status(401).json({
+                    success: false,
+                    message: data.message
+                })
+            }
+        })
+    }
 })

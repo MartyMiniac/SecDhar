@@ -1,9 +1,11 @@
-import { generateKeyPair, createHash, createPrivateKey, createSign } from "crypto";
+import { generateKeyPair, createHash, createPrivateKey, createSign, createPublicKey, publicEncrypt, constants } from "crypto";
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
 import { User } from "../models/user";
 import { Key } from "../models/key";
+import { RefreshRequest } from "../models/refreshRequest";
+import { generateRandomString } from "../helpers/random";
 
 /**
  * generates the rsa public private key pair
@@ -135,4 +137,104 @@ export const updateRegistrationInfo = (data: any) => {
  */
 export const returnPublicKey = () => {
     return readFileSync(resolve('private.pem'), {encoding: 'ascii'});
+}
+
+export const requestRefresh = (hash: any) => {
+    return new Promise(async (resolve, reject) => {
+        const usr = await User.findOne({
+            dataHash: hash
+        });
+        if(usr===null) {
+            resolve({
+                success: false
+            });
+        }
+        else {
+            const secret = generateRandomString(20);
+            console.log(secret);
+            let rqst = new RefreshRequest({
+                uid: usr._id,
+                secret: secret
+            });
+            rqst = await rqst.save();
+            const publicKey = createPublicKey({
+                key: Buffer.from(usr.publicKey, 'base64'),
+                type: 'spki',
+                format: 'der'
+            });
+            const encSecret = publicEncrypt({
+                key: publicKey,
+                padding: constants.RSA_PKCS1_OAEP_PADDING
+            }, Buffer.from(secret));
+            resolve({
+                success: true,
+                encSecret: encSecret.toString('base64'),
+                requestID: rqst._id
+            })
+        }
+    })
+}
+
+const updateExpiry = (uid: string) => {
+    return new Promise(async (resolve, reject) => {
+        const k = await Key.findOne({
+            uid: uid
+        })
+        const timePair = generateExiprationDate(3);
+        const nk = new Key({
+            publicKey: k?.publicKey,
+            creationTime: timePair.creationTime,
+            expirationTime: timePair.expiryTime,
+            uid: k?.uid
+        })
+        await k?.remove();
+        await nk.save()
+        resolve({sign: signData({publicKey: k?.publicKey, time: timePair}), time: timePair})
+    })
+}
+
+export const issueRefresh = (body: any) => {
+    return new Promise(async (resolve, reject) => {
+        const req = await RefreshRequest.findById(body.requestID);
+        if(req===null) {
+            resolve({
+                success: false,
+                message: 'requestID not found',
+                code: 301
+            })
+        }
+
+        const usr = await User.findOne({
+            dataHash: body.dataHash
+        });
+        if(usr===null) {
+            resolve({
+                success: false,
+                message: 'user not found',
+                code: 302
+            })
+        }
+
+        if(req?.uid !== usr?._id.toString()) {
+            resolve({
+                success: false,
+                message: 'user not linked to the request id',
+                code: 303
+            })
+        }
+
+        if(req?.secret===body.decString) {
+            resolve({
+                success: true,
+                data: await updateExpiry(req?.uid || '')
+            })
+        }
+        else {
+            resolve({
+                success: false,
+                message: 'incorrect secret',
+                code: 304
+            })
+        }
+    })
 }

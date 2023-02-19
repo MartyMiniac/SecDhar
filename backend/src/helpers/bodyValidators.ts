@@ -12,3 +12,27 @@ export const registerBodyValidator = (body: any) => {
         return true;
     }
 }
+
+export const requestRefreshValidator = (body: any) => {
+    if(
+        body.dataHash === undefined
+    ) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+export const issueRefreshValidator = (body: any) => {
+    if(
+        body.dataHash === undefined ||
+        body.decString === undefined ||
+        body.requestID === undefined
+    ) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
