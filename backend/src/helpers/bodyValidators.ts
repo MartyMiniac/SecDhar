@@ -1,4 +1,6 @@
-export const registerBodyValidator = (body: any) => {
+import { IIssueRefreshRequest, IRegisterRequest, IRequestRefreshRequest } from "../interfaces/jsonRequestData";
+
+export const registerBodyValidator = (body: IRegisterRequest['body']) => {
     if(
         body.name === undefined ||
         body.dob === undefined ||
@@ -13,7 +15,7 @@ export const registerBodyValidator = (body: any) => {
     }
 }
 
-export const requestRefreshValidator = (body: any) => {
+export const requestRefreshValidator = (body: IRequestRefreshRequest['body']) => {
     if(
         body.dataHash === undefined
     ) {
@@ -24,10 +26,10 @@ export const requestRefreshValidator = (body: any) => {
     }
 }
 
-export const issueRefreshValidator = (body: any) => {
+export const issueRefreshValidator = (body: IIssueRefreshRequest['body']) => {
     if(
         body.dataHash === undefined ||
-        body.decString === undefined ||
+        body.decryptedString === undefined ||
         body.requestID === undefined
     ) {
         return false;

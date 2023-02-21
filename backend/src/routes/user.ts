@@ -2,6 +2,11 @@ import { Router, Request, Response } from "express";
 
 import { registerBodyValidator, requestRefreshValidator, issueRefreshValidator } from "../helpers/bodyValidators";
 import { AadharVerifier, checkAlreadyRegistered, generatePublicPrivateKeyPair, generateExiprationDate, returnPublicKey, signData, updateRegistrationInfo, hashInfo, requestRefresh, issueRefresh } from "../controllers/user";
+import { IJsonSuccess, IJsonFailure } from "../interfaces/jsonResponse";
+import { IIssueRefreshRequest, IRegisterRequest, IRequestRefreshRequest } from "../interfaces/jsonRequestData";
+import { IIssueRequestData, IRegisterData, IRequestRefreshData } from "../interfaces/jsonResponseData";
+import { IRequestRefresh } from "../interfaces/requestRefresh";
+import { IKeyPair } from "../interfaces/keyPair";
 
 export const router: Router = Router();
 
@@ -16,46 +21,54 @@ export const router: Router = Router();
  * Hash the info and store it corresponding to the public key, creation date and expiration date
  * send the public key private key pair along with digital signature, creation date and expiration date to the person
  */
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', async (req: IRegisterRequest, res: Response) => {
     if(!registerBodyValidator(req.body)) {
-        return res.status(400).json({
+        const response: IJsonFailure = {
             success: false,
-            message: 'Requested Information name, dob, gender, address and aadharNo Not found'
-        })
+            message: 'Requested Information name, dob, gender, address and aadharNo Not found',
+            errorCode: 101
+        };
+        return res.status(400).json(response);
     }
     else {
         try {
             if(await AadharVerifier(req.body) && !(await checkAlreadyRegistered(req.body))) {
-                const keyPair: any = await generatePublicPrivateKeyPair();
+                const keyPair: IKeyPair = await generatePublicPrivateKeyPair();
                 // considering 3 days of key retention period is pretty generous (btw open for suggessions)
                 const timePair = generateExiprationDate(3);
-                const data = {
-                    keypair: keyPair,
-                    time: timePair,
-                    sign: signData({publicKey: keyPair.publicKey, time: timePair}),
-                    dataHash: hashInfo(req.body)
-                }
                 // console.log(JSON.stringify({publicKey: keyPair.publicKey, time: timePair}))
-    
-                updateRegistrationInfo(data)
+                const response: IJsonSuccess<IRegisterData> = {
+                    success: true,
+                    data: {
+                        keyPair: keyPair,
+                        timePair: timePair,
+                        sign: signData({publicKey: keyPair.publicKey, time: timePair}),
+                        dataHash: hashInfo(req.body)
+                    }
+                };
+                updateRegistrationInfo(response.data)
                 .then(() => {
-                    return res.json(data)
+                    return res.json(response)
                 })
     
                 // return res.json(await generatePublicPrivateKeyPair());
             }
             else {
-                return res.status(401).json({
+                const response: IJsonFailure = {
                     success: false,
-                    message: 'Aadhar data verification failed or already registered'
-                })
+                    message: 'Aadhar data verification failed or already registered',
+                    errorCode: 102
+                };
+                return res.status(401).json(response);
             }
         }
         catch {
-            return res.status(500).json({
+            const response: IJsonFailure = {
                 success: false,
-                message: 'Internal Error'
-            })
+                message: 'Internal Error',
+                errorCode: 103
+            };
+            return res.status(500).json(response);
         }
     }
 })
@@ -66,47 +79,57 @@ router.get('/getPublicKey', (req: Request, res: Response) => {
     })
 })
 
-router.post('/requestRefresh', (req: Request, res: Response) => {
+router.post('/requestRefresh', (req: IRequestRefreshRequest, res: Response) => {
     if(!requestRefreshValidator(req.body)) {
-        return res.status(400).json({
+        const response: IJsonFailure = {
             success: false,
-            message: 'Requested Information dataHash not found'
-        })
+            message: 'Requested Information dataHash not found',
+            errorCode: 301
+        };
+        return res.status(400).json(response);
     }
     else {
         requestRefresh(req.body.dataHash)
-        .then((data: any) => {
+        .then((data: IRequestRefresh) => {
             if(data.success===true) {
-                return res.json({
-                    requestID: data.requestID,
-                    encSecret: data.encSecret
-                })
+                const response: IJsonSuccess<IRequestRefreshData> = {
+                    success: true,
+                    data: {
+                        requestID: data.requestID,
+                        encryptedSecret: data.encryptedSecret
+                    }
+                };
+                return res.json(response);
             }
             else {
-                return res.sendStatus(404)
+                const response: IJsonFailure = {
+                    success: false,
+                    message: 'Requesting Profile not found',
+                    errorCode: 302
+                };
+                return res.status(404).json(response);
             }
         })
     }
 })
 
-router.post('/issueRefresh', (req: Request, res: Response) => {
+router.post('/issueRefresh', (req: IIssueRefreshRequest, res: Response) => {
     if(!issueRefreshValidator(req.body)) {
-        return res.status(400).json({
+        const response: IJsonFailure = {
             success: false,
-            message: 'Requested Information dataHash, decString and requestID not found'
-        })
+            message: 'Requested Information dataHash, decString and requestID not found',
+            errorCode: 401
+        };
+        return res.status(400).json(response);
     }
     else {
         issueRefresh(req.body)
-        .then((data: any) => {
+        .then((data: IJsonFailure | IJsonSuccess<IIssueRequestData>) => {
             if(data.success===true) {
-                return res.json(data.data);
+                return res.json(data);
             }
             else {
-                return res.status(401).json({
-                    success: false,
-                    message: data.message
-                })
+                return res.status(401).json(data);
             }
         })
     }

@@ -1,16 +1,22 @@
 import { generateKeyPair, createHash, createPrivateKey, createSign, createPublicKey, publicEncrypt, constants } from "crypto";
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync } from "fs";
 import { resolve } from "path";
 
 import { User } from "../models/user";
 import { Key } from "../models/key";
 import { RefreshRequest } from "../models/refreshRequest";
 import { generateRandomString } from "../helpers/random";
+import { IKeyPair } from "../interfaces/keyPair";
+import { ITimePair } from "../interfaces/timePair";
+import { IIssueRequestData, IRegisterData } from "../interfaces/jsonResponseData";
+import { IRequestRefresh } from "../interfaces/requestRefresh";
+import { IJsonFailure, IJsonSuccess } from "../interfaces/jsonResponse";
+import { IIssueRefreshRequest, IRegisterRequest } from "../interfaces/jsonRequestData";
 
 /**
  * generates the rsa public private key pair
  */
-export const generatePublicPrivateKeyPair = () => {
+export const generatePublicPrivateKeyPair = (): Promise<IKeyPair> => {
     return new Promise((resolve, reject) => {
         generateKeyPair('rsa', {
             modulusLength: 2048,
@@ -29,10 +35,11 @@ export const generatePublicPrivateKeyPair = () => {
             else {
                 // writeFileSync('private.pem', privateKey.toString('base64'))
                 // writeFileSync('public.pem', publicKey.toString('base64'))
-                resolve({
+                const keyPair: IKeyPair = {
                     publicKey: publicKey.toString('base64'),
                     privateKey: privateKey.toString('base64')
-                });
+                };
+                resolve(keyPair);
             }
         });
     });
@@ -42,7 +49,7 @@ export const generatePublicPrivateKeyPair = () => {
  * hashes the supplied info
  * @param data aadhar info needed to be hashed
  */
-export const hashInfo = (data: any) => {
+export const hashInfo = (data: any): string => {
     return createHash('md5').update(JSON.stringify(data)).digest('hex');
 }
 
@@ -50,7 +57,7 @@ export const hashInfo = (data: any) => {
  * creates a digital sign of public key, creation date and expiration date
  * @param data public key, creation date and expiration date to be digitally signed
  */
-export const signData = (data: any) => {
+export const signData = (data: any): string => {
     // console.log(readFileSync(resolve('private.pem'), {encoding: 'ascii'}))
     const privateKey = createPrivateKey({
         key: Buffer.from(readFileSync(resolve('private.pem'), {encoding: 'ascii'}), 'base64'),
@@ -68,21 +75,22 @@ export const signData = (data: any) => {
  * generates creation date and expiration date info
  * @param validityPeriod validity period of the public key private key pair in number of days
  */
-export const generateExiprationDate = (validityPeriod: number) => {
+export const generateExiprationDate = (validityPeriod: number): ITimePair => {
     const currTime = new Date();
     const expTime = new Date();
     expTime.setDate(currTime.getDate()+validityPeriod);
-    return {
+    const timePair: ITimePair = {
         creationTime: currTime,
-        expiryTime: expTime
+        expirationTime: expTime
     };
+    return timePair;
 }
 
 /**
  * verifies the data from aadhar server [dummy]
  * @param data aadhar data needed to be sent to aadhar servers
  */
-export const AadharVerifier = (data: any) => {
+export const AadharVerifier = (data: any): Promise<boolean> => {
     return new Promise((resolve, reject) => {
         resolve(true);
     });
@@ -92,7 +100,7 @@ export const AadharVerifier = (data: any) => {
  * verfies if the aadhar user is already registered
  * @param data aadhar data needed to be check for registration
  */
-export const checkAlreadyRegistered = (data: any) => {
+export const checkAlreadyRegistered = (data: IRegisterRequest['body']): Promise<boolean> => {
     return new Promise(async (resolve, reject) => {
         const hash = hashInfo(data);
         const results = await User.find({
@@ -112,18 +120,18 @@ export const checkAlreadyRegistered = (data: any) => {
  * updates the database with issue of the rsa keys
  * @param data userInfo required to be updated to the database
  */
-export const updateRegistrationInfo = (data: any) => {
+export const updateRegistrationInfo = (data: IRegisterData): Promise<boolean> => {
     return new Promise(async (resolve, reject) => {
         let usr = new User({
             dataHash: data.dataHash,
-            publicKey: data.keypair.publicKey
+            publicKey: data.keyPair.publicKey
         });
         usr = await usr.save()
 
         const k = new Key({
-            publicKey: data.keypair.publicKey,
-            creationTime: data.time.creationTime,
-            expirationTime: data.time.expiryTime,
+            publicKey: data.keyPair.publicKey,
+            creationTime: data.timePair.creationTime,
+            expirationTime: data.timePair.expirationTime,
             uid: usr._id
         })
         await k.save()
@@ -135,18 +143,20 @@ export const updateRegistrationInfo = (data: any) => {
 /**
  * returns the goverment public key for the validation of the signature
  */
-export const returnPublicKey = () => {
+export const returnPublicKey = (): string => {
     return readFileSync(resolve('private.pem'), {encoding: 'ascii'});
 }
 
-export const requestRefresh = (hash: any) => {
+export const requestRefresh = (hash: string): Promise<IRequestRefresh> => {
     return new Promise(async (resolve, reject) => {
         const usr = await User.findOne({
             dataHash: hash
         });
         if(usr===null) {
             resolve({
-                success: false
+                success: false,
+                encryptedSecret: '',
+                requestID: ''
             });
         }
         else {
@@ -167,14 +177,14 @@ export const requestRefresh = (hash: any) => {
             }, Buffer.from(secret));
             resolve({
                 success: true,
-                encSecret: encSecret.toString('base64'),
-                requestID: rqst._id
+                encryptedSecret: encSecret.toString('base64'),
+                requestID: rqst._id.toString()
             })
         }
     })
 }
 
-const updateExpiry = (uid: string) => {
+const updateExpiry = (uid: string): Promise<IIssueRequestData> => {
     return new Promise(async (resolve, reject) => {
         const k = await Key.findOne({
             uid: uid
@@ -183,16 +193,16 @@ const updateExpiry = (uid: string) => {
         const nk = new Key({
             publicKey: k?.publicKey,
             creationTime: timePair.creationTime,
-            expirationTime: timePair.expiryTime,
+            expirationTime: timePair.expirationTime,
             uid: k?.uid
         })
         await k?.remove();
         await nk.save()
-        resolve({sign: signData({publicKey: k?.publicKey, time: timePair}), time: timePair})
+        resolve({sign: signData({publicKey: k?.publicKey, time: timePair}), timePair: timePair})
     })
 }
 
-export const issueRefresh = (body: any) => {
+export const issueRefresh = (body: IIssueRefreshRequest['body']): Promise<IJsonFailure | IJsonSuccess<IIssueRequestData>> => {
     return new Promise(async (resolve, reject) => {
         const req = await RefreshRequest.findByIdAndUpdate(body.requestID, {
             expired: true
@@ -201,14 +211,14 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'requestID not found',
-                code: 301
+                errorCode: 401
             })
         }
         if(req?.expired===true) {
             resolve({
                 success: false,
                 message: 'request expired please issue a new request',
-                code: 302
+                errorCode: 402
             })
         }
 
@@ -219,7 +229,7 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'user not found',
-                code: 303
+                errorCode: 403
             })
         }
 
@@ -227,11 +237,11 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'user not linked to the request id',
-                code: 304
+                errorCode: 404
             })
         }
 
-        if(req?.secret===body.decString) {
+        if(req?.secret===body.decryptedString) {
             resolve({
                 success: true,
                 data: await updateExpiry(req?.uid || '')
@@ -241,7 +251,7 @@ export const issueRefresh = (body: any) => {
             resolve({
                 success: false,
                 message: 'incorrect secret',
-                code: 305
+                errorCode: 405
             })
         }
     })
