@@ -1,5 +1,11 @@
-html, body {
-    margin: 0;
+html,
+body {
+    /* margin: 0;
     padding: 0;
-    border: none;
+    border: none; */
+    background: linear-gradient(180deg, #ee4540, #942458, #2d142c);
+}
+
+body>#root>div {
+    height: 100vh;
 }

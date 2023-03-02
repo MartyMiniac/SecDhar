@@ -36,7 +36,7 @@ const LoginPage = () => {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ bgcolor: '#510A32', borderRadius: '5px' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
                         <Typography variant="h6" noWrap>
@@ -45,10 +45,12 @@ const LoginPage = () => {
                     </Toolbar>
                 </Container>
             </AppBar>
+
             <Container
-                maxWidth="xl"
+                maxWidth="xs"
                 sx={{
                     paddingTop: '1em',
+                    mt: '3.4%'
                 }}
             >
                 <Paper
@@ -129,6 +131,7 @@ const LoginPage = () => {
                             sx={{
                                 margin: '1em 0em',
                                 minWidth: '8em',
+                                bgcolor: '#510A32'
                             }}
                             onClick={localLoginHandler}
                         >
