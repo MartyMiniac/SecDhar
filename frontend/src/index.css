@@ -6,6 +6,6 @@ body {
     background: linear-gradient(180deg, #ee4540, #942458, #2d142c);
 }
 
-body>#root>div {
+#root{
     height: 100vh;
 }
