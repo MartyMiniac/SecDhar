@@ -1,14 +1,14 @@
 import QRCode from 'qrcode'
 import { useState, useEffect } from 'react'
 import { Button } from '@mui/material'
-import axios from "axios";
 
 function Qrcode() {
     const [data, setData] = useState('')
     const [qr, setQr] = useState('')
     const fetchData = () => {
-        return axios.get("https://jsonplaceholder.typicode.com/users")
-            .then((response) => setData(response.data[1].name));
+        return fetch("https://jsonplaceholder.typicode.com/users")
+            .then((response) => response.json())
+            .then((data) => setData(data[0].name));
     }
 
     useEffect(() => {
