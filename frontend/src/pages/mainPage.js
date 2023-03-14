@@ -1,18 +1,16 @@
-import AppBar from '@mui/material/AppBar';
-import { BottomNavigation, BottomNavigationAction, Box, Paper, Toolbar, Typography, Button } from '@mui/material';
+import { AppBar, BottomNavigation, BottomNavigationAction, Box, Paper, Toolbar, Typography, Button } from '@mui/material';
 import SwapCallsIcon from '@mui/icons-material/SwapCalls';
 import PlaylistAddCheckCircleIcon from '@mui/icons-material/PlaylistAddCheckCircle';
 import { useState } from 'react';
 import { session } from '../controllers/session';
-import Buttons from './buttons';
-import Logs from './logs'
+import ShareAuth from '../components/shareAuthComponents';
+import Logs from '../components/fulllogs';
 
 const MainPage = () => {
     const [bottomNavSelection, setBottomNavSelection] = useState(0);
 
     return (
         <>
-
             <AppBar position="static" sx={{ bgcolor: '#510A32', borderRadius: '5px' }}>
                 <Toolbar>
                     <Typography
@@ -26,9 +24,9 @@ const MainPage = () => {
                 </Toolbar>
             </AppBar>
 
-            {bottomNavSelection === 0 && <Buttons />}
+            {bottomNavSelection === 0 && <ShareAuth /> }
             {bottomNavSelection === 1 && <Logs />}
-
+            
             <Box>
                 <Paper
                     sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
@@ -44,12 +42,13 @@ const MainPage = () => {
                             label="Share Auth"
                             icon={<SwapCallsIcon />}
                             onClick={() => setBottomNavSelection(0)}
+                            sx={{color:'white'}}
                         />
                         <BottomNavigationAction
                             label="Logs"
                             icon={<PlaylistAddCheckCircleIcon />}
                             onClick={() => setBottomNavSelection(1)}
-
+                            sx={{color:'white'}}
                         />
                     </BottomNavigation>
                 </Paper>

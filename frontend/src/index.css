@@ -1,11 +1,8 @@
 html,
 body {
-    /* margin: 0;
-    padding: 0;
-    border: none; */
     background: linear-gradient(180deg, #ee4540, #942458, #2d142c);
 }
 
-#root{
+#root {
     height: 100vh;
 }
