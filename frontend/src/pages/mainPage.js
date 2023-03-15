@@ -47,7 +47,7 @@ const MainPage = () => {
                         <BottomNavigationAction
                             label="Logs"
                             icon={<PlaylistAddCheckCircleIcon />}
-                            onClick={() => setBottomNavSelection(1)}
+                            onClick={() => {setBottomNavSelection(1); session.display()}}
                             sx={{color:'white'}}
                         />
                     </BottomNavigation>

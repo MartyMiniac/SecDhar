@@ -11,14 +11,14 @@ function App() {
         setLogin(session.loginState);
     });
 
-    (() => {
-        const text='Hello World';
-        const encText = encrypt(text);
-        console.log(encText)
-        const decText = decrypt(encText);
-        console.log(decText)
-        console.log(text===decText)
-    })()
+    // (() => {
+    //     const text='Hello World';
+    //     const encText = encrypt(text);
+    //     console.log(encText)
+    //     const decText = decrypt(encText);
+    //     console.log(decText)
+    //     console.log(text===decText)
+    // })()
 
     return <>{login === true ? <MainPage /> : <LoginPage />}</>;
 }

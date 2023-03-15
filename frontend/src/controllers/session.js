@@ -3,23 +3,30 @@ export const session = {
     loginState: false,
 
     login: (profile) => {
-        session.loginState = true;
+        return new Promise((resolve, reject) => {
+            session.loginState = true;
 
-        //populating profile data
-        session.internal.vars.profile.name = profile.name;
-        session.internal.vars.profile.aadharNo = profile.aadhar;
-        session.internal.vars.profile.gender = profile.gender;
-        session.internal.vars.profile.dob = profile.dob;
-        session.internal.vars.profile.address = profile.address;
+            //populating profile data
+            session.internal.vars.profile.name = profile.name;
+            session.internal.vars.profile.aadharNo = profile.aadhar;
+            session.internal.vars.profile.gender = profile.gender;
+            session.internal.vars.profile.dob = profile.dob;
+            session.internal.vars.profile.address = profile.address;
 
-        register(session.internal.vars.profile).then((data) => {
-            session.internal.vars.creds.keyPair = data.keyPair;
-            session.internal.vars.creds.timePair = data.timePair;
-            session.internal.vars.creds.sign = data.sign;
-            session.internal.vars.creds.dataHash = data.dataHash;
+            register(session.internal.vars.profile)
+                .then((data) => {
+                    session.internal.vars.creds.keyPair = data.keyPair;
+                    session.internal.vars.creds.timePair = data.timePair;
+                    session.internal.vars.creds.sign = data.sign;
+                    session.internal.vars.creds.dataHash = data.dataHash;
+
+                    session.internal.funcs.callLoginListeners();
+                    resolve();
+                })
+                .then((err) => {
+                    reject(err);
+                });
         });
-
-        session.internal.funcs.callLoginListeners();
     },
     logout: () => {
         session.loginState = false;
@@ -34,9 +41,16 @@ export const session = {
     },
     display: () => {
         console.log(session.internal.vars.profile);
+        console.log(session.internal.vars.creds);
     },
     getCreds: () => {
         return session.internal.vars.creds;
+    },
+    getPubKey: () => {
+        return session.internal.vars.creds.keyPair.publicKey;
+    },
+    getPriKey: () => {
+        return session.internal.vars.creds.keyPair.privateKey;
     },
     addLoginListener: (func) => {
         session.internal.vars.loginListenerFuncs.push(func);
