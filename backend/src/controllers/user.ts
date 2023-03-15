@@ -64,8 +64,8 @@ export const signData = (data: any): string => {
         type: 'pkcs1',
         format: 'der'
     });
-    // console.log(JSON.stringify(data))
-    const sign = createSign('SHA256')
+    console.log(JSON.stringify(data))
+    const sign = createSign('sha256')
     sign.update(JSON.stringify(data));
     sign.end();
     return sign.sign(privateKey).toString('base64');
