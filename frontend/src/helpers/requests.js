@@ -21,5 +21,23 @@ export const Request = {
                 });
         });
     },
-    get: (path) => {},
+    get: (path) => {
+        return new Promise((resolve, reject) => {
+            fetch(Request.domain + path, {
+                method: 'GET',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                redirect: 'follow'
+            })
+                .then((data) => {
+                    resolve(data.json());
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    },
 };

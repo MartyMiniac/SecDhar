@@ -43,8 +43,15 @@ export const session = {
         console.log(session.internal.vars.profile);
         console.log(session.internal.vars.creds);
     },
-    getCreds: () => {
-        return session.internal.vars.creds;
+    getPubCreds: () => {
+        return {
+            publicKey: session.internal.vars.creds.keyPair.publicKey,
+            timePair: session.internal.vars.creds.timePair,
+            sign: session.internal.vars.creds.sign
+        }
+    },
+    getSecretProfile: () => {
+        return session.internal.vars.profile
     },
     getPubKey: () => {
         return session.internal.vars.creds.keyPair.publicKey;

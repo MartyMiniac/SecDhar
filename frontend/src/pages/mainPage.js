@@ -6,9 +6,16 @@ import { session } from '../controllers/session';
 import ShareAuth from '../components/shareAuthComponents';
 import Logs from '../components/fulllogs';
 
+import { sendProtocol } from '../controllers/exchangeProtocol';
+
 const MainPage = () => {
     const [bottomNavSelection, setBottomNavSelection] = useState(0);
 
+    (() => {
+        sendProtocol.init();
+        sendProtocol.getData(session.getPubCreds());
+    })()
+    
     return (
         <>
             <AppBar position="static" sx={{ bgcolor: '#510A32', borderRadius: '5px' }}>
