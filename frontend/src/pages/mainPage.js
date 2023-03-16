@@ -5,8 +5,16 @@ import { useState } from 'react';
 import { session } from '../controllers/session';
 import ShareAuth from '../components/shareAuthComponents';
 import Logs from '../components/fulllogs';
+import { styled } from "@mui/material/styles";
 
 import { sendProtocol } from '../controllers/exchangeProtocol';
+
+const BottomNavigationActionStyled = styled(BottomNavigationAction,)(`
+  color: white;
+  &.Mui-selected {
+    color: red;
+  }
+`);
 
 const MainPage = () => {
     const [bottomNavSelection, setBottomNavSelection] = useState(0);
@@ -15,7 +23,7 @@ const MainPage = () => {
         sendProtocol.init();
         sendProtocol.getData(session.getPubCreds());
     })()
-    
+
     return (
         <>
             <AppBar position="static" sx={{ bgcolor: '#510A32', borderRadius: '5px' }}>
@@ -31,9 +39,9 @@ const MainPage = () => {
                 </Toolbar>
             </AppBar>
 
-            {bottomNavSelection === 0 && <ShareAuth /> }
+            {bottomNavSelection === 0 && <ShareAuth />}
             {bottomNavSelection === 1 && <Logs />}
-            
+
             <Box>
                 <Paper
                     sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}
@@ -45,17 +53,17 @@ const MainPage = () => {
                         sx={{ bgcolor: '#510A32' }}
                     >
 
-                        <BottomNavigationAction
+                        <BottomNavigationActionStyled
                             label="Share Auth"
                             icon={<SwapCallsIcon />}
                             onClick={() => setBottomNavSelection(0)}
-                            sx={{color:'white'}}
+
                         />
-                        <BottomNavigationAction
+                        <BottomNavigationActionStyled
                             label="Logs"
                             icon={<PlaylistAddCheckCircleIcon />}
-                            onClick={() => {setBottomNavSelection(1); session.display()}}
-                            sx={{color:'white'}}
+                            onClick={() => { setBottomNavSelection(1); session.display() }}
+
                         />
                     </BottomNavigation>
                 </Paper>

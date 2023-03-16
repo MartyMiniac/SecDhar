@@ -22,7 +22,7 @@ const Buttons = () => {
 
     return (
         <>
-            <Grid sx={{ bgcolor: 'white', mt: 3, ml: 5, borderRadius: 1, width: 0.4, "@media (max-width: 768px)": { width: 1, mx: 'auto', mt: 2 } }} >
+            <Grid sx={{ bgcolor: 'white', m: 3, borderRadius: 1, }} >
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-evenly',

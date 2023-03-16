@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 export default function Cards() {
 
     return (
-        <Card sx={{ display: 'flex', width: 0.4, height: 0.3, mt: 3, ml: 5, "@media (max-width: 768px)": { width: 'auto', height:'auto', mx:'auto', mt: 2 } }}>
+
+        <Card sx={{ display: 'flex', height: 0.3, m: 3, "@media (max-width: 768px)": { height: 'auto' } }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', width: 0.5 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="h5">
@@ -14,7 +15,7 @@ export default function Cards() {
                     </Typography>
                 </CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                    
+
                 </Box>
             </Box>
             <CardMedia
