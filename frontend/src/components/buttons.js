@@ -22,21 +22,21 @@ const Buttons = () => {
 
     return (
         <>
-            <Grid sx={{ bgcolor: 'white', m: 3, borderRadius: 1, }} >
+            <Grid sx={{ bgcolor: 'white', borderRadius: 1, width: 0.4, m: 'auto', "@media (max-width: 768px)": { width:'auto' ,height: 'auto' }}} >
                 <Box sx={{
                     display: 'flex',
                     justifyContent: 'space-evenly',
                     p: 1,
                     m: 1,
                 }}>
-                    <Button variant="contained" sx={{ bgcolor: '#510A32' }} onClick={handleOpenScanner}>Scan Data</Button>
+                    <Button variant="contained" sx={{ bgcolor: '#510A32' }} onClick={handleOpenScanner}>Request Data</Button>
                     <Dialog open={openScanner} onClose={handleCloseScanner}>
                         <DialogTitle>{"Scan Data"}</DialogTitle>
                         <DialogContent> <QrcodeScanner /> </DialogContent>
                         <DialogActions> <Button onClick={handleCloseScanner}>Close</Button> </DialogActions>
                     </Dialog>
 
-                    <Button variant="contained" sx={{ bgcolor: '#510A32' }} onClick={handleOpenGenerate}>Generate Data</Button>
+                    <Button variant="contained" sx={{ bgcolor: '#510A32' }} onClick={handleOpenGenerate}>Send Data</Button>
                     <Dialog open={openGenerate} onClose={handleCloseGenerate}>
                         <DialogTitle>{"Generate Data"}</DialogTitle>
                         <DialogContent> <QrcodeGenerator /> </DialogContent>

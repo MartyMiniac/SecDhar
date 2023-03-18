@@ -12,7 +12,7 @@ import { sendProtocol } from '../controllers/exchangeProtocol';
 const BottomNavigationActionStyled = styled(BottomNavigationAction,)(`
   color: white;
   &.Mui-selected {
-    color: red;
+    color: #ee4540;
   }
 `);
 

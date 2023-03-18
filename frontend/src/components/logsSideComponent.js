@@ -4,7 +4,7 @@ import { logsData } from '../services.js/data';
 const SideComponent = () => {
 
   return ( 
-    <Grid sx={{ bgcolor: 'white', m: 3,borderRadius: 1,}} >
+    <Grid sx={{ bgcolor: 'white', m: 'auto',borderRadius: 1, width: 0.4, "@media (max-width: 768px)": { width: 'auto' }}} >
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',

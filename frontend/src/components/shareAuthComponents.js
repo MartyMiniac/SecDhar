@@ -5,8 +5,8 @@ import Buttons from './buttons'
 export default function ShareAuth() {
     return (
         <>
-            <section>
-                <div className='grid grid-rows-2 md:grid-cols-2'>
+            <section >
+                <div className='grid md:grid-cols-2'>
                     <div className='md:h-screen'>
                         <Buttons />
                         <Cards />
