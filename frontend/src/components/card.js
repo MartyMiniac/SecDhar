@@ -17,7 +17,7 @@ export default function Cards() {
             </Box>
             <CardMedia
                 component="img"
-                sx={{ maxWidth: '100px',maxHeight: '100px' }}
+                sx={{ maxWidth: '200px',maxHeight: '200px', ml: 'auto' }}
                 image="https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
         </Card>

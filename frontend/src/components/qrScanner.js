@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useZxing } from "react-zxing";
+import {Box, Button} from '@mui/material';
 
 const QrcodeScanner = () => {
     const [result, setResult] = useState("");
@@ -24,14 +25,14 @@ const QrcodeScanner = () => {
         <>
             <video ref={ref} style={{width:'100%'}}/>
             <p>
-                <span>Last result:</span>
+                <span>Result:</span>
                 <span>{result}</span>
             </p>
-            <div>
-                <button onClick={() => setPaused(!paused)}>
+            <Box sx={{ '& button': { m: 1 } }}>
+                <Button size="small" variant="outlined" onClick={() => setPaused(!paused)}>
                     {paused ? "Resume" : "Stop Scan"}
-                </button>
-                <button
+                </Button>
+                <Button size="small" variant="outlined"
                     onClick={() => {
                         if (isTorchOn) {
                             torchOff();
@@ -42,8 +43,8 @@ const QrcodeScanner = () => {
                     disabled={!isTorchAvailable}
                 >
                     {isTorchOn ? "Disable" : "Enable"} torch
-                </button>
-            </div>
+                </Button>
+            </Box>
         </>
     );
 };
