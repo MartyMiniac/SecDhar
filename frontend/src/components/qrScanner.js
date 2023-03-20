@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useZxing } from "react-zxing";
 import {Box, Button} from '@mui/material';
+import FlashOnIcon from '@mui/icons-material/FlashOn';
+import FlashOffIcon from '@mui/icons-material/FlashOff';
+import PauseIcon from '@mui/icons-material/Pause'; 
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const QrcodeScanner = () => {
     const [result, setResult] = useState("");
@@ -30,7 +34,7 @@ const QrcodeScanner = () => {
             </p>
             <Box sx={{ '& button': { m: 1 } }}>
                 <Button size="small" variant="outlined" onClick={() => setPaused(!paused)}>
-                    {paused ? "Resume" : "Stop Scan"}
+                    {paused ? <ReplayIcon /> : <PauseIcon />}
                 </Button>
                 <Button size="small" variant="outlined"
                     onClick={() => {
@@ -42,7 +46,7 @@ const QrcodeScanner = () => {
                     }}
                     disabled={!isTorchAvailable}
                 >
-                    {isTorchOn ? "Disable" : "Enable"} torch
+                    {isTorchOn ? <FlashOffIcon /> : <FlashOnIcon />}
                 </Button>
             </Box>
         </>
