@@ -21,11 +21,11 @@ const Logs = () => {
         initialState={{
           pagination: {
             paginationModel: {
-              pageSize: 10,
+              pageSize: 8,
             },
           },
         }}
-        pageSizeOptions={[5,8,10]}
+        pageSizeOptions={[4,6,8]}
         disableRowSelectionOnClick
         sx={{border: 0, }}
       />
