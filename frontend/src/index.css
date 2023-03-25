@@ -5,23 +5,9 @@
 html,
 body {
     background: linear-gradient(45deg, #ee4540, #942458, #2d142c);
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 #root {
     height: 100vh;
-}
-
-.logsDiv{
-    width: fit-content;
-    background-color: white;
-    border-radius: 20px;
-    border: none;
-    margin: 20px auto;
-}
-
-@media only screen and (max-width: 768px){
-    .logsDiv{
-        width: 100%;
-    }
 }
