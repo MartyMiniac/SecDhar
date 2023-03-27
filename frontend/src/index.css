@@ -4,23 +4,9 @@
 
 html,
 body {
-    background: linear-gradient(45deg, #ee4540, #942458, #2d142c)
+    background: linear-gradient(45deg, #FF671F, #FFFFFF, #046A38)
 }
 
 #root {
     height: 100vh;
 }
-
-/* .logsDiv{
-    width:330px;
-    background-color: white;
-    border-radius: 20px;
-    border: none;
-    margin: 20px auto;
-}
-
-@media only screen and (max-width: 768px){
-    .logsDiv{
-        width: 100%;
-    }
-} */

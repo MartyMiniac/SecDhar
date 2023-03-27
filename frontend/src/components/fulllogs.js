@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {List,Grid, ListItem, ListItemText, Divider,ListItemAvatar,Avatar,Pagination} from '@mui/material';
+import { List, Grid, ListItem, ListItemText, Divider, ListItemAvatar, Avatar, Pagination } from '@mui/material';
 import { logsData } from '../services.js/data'
 import UsePagination from '../services.js/pagination';
 import SendIcon from '@mui/icons-material/Send';
@@ -13,9 +13,9 @@ const Logs = () => {
   const count = Math.ceil(logsData.users.length / PER_PAGE);
   const _DATA = UsePagination(logsData.users, PER_PAGE);
   const handleChange = (e, p) => { setPage(p); _DATA.jump(p); };
- 
+
   return (
-    <Grid sx={{ bgcolor: 'white', width:'330px', mx: 'auto', my: 2, borderRadius: 2, "@media (max-width: 768px)": { width: '100%' } }}>
+    <Grid sx={{ bgcolor: 'white', width: 1 / 3, mx: 'auto', my: 2, borderRadius: 2, "@media (max-width: 768px)": { width: '100%' } }}>
       <List sx={{}}>
         {_DATA.currentData().map((data, index) => (
           <React.Fragment key={data.id}>
@@ -41,11 +41,11 @@ const Logs = () => {
         ))}
       </List>
       <Pagination
-          count={count}
-          page={page}
-          onChange={handleChange}
-          sx={{float: 'right'}}
-        />
+        count={count}
+        page={page}
+        onChange={handleChange}
+        sx={{ float: 'right' }}
+      />
     </Grid>
   );
 }
