@@ -43,6 +43,7 @@ router.post('/register', async (req: IRegisterRequest, res: Response) => {
                         keyPair: keyPair,
                         timePair: timePair,
                         sign: signData({publicKey: keyPair.publicKey, timePair: timePair}),
+                        // sign: '1',
                         dataHash: hashInfo(req.body)
                     }
                 };
@@ -62,12 +63,13 @@ router.post('/register', async (req: IRegisterRequest, res: Response) => {
                 return res.status(401).json(response);
             }
         }
-        catch {
+        catch(err) {
             const response: IJsonFailure = {
                 success: false,
                 message: 'Internal Error',
                 errorCode: 103
             };
+            console.log(err)
             return res.status(500).json(response);
         }
     }

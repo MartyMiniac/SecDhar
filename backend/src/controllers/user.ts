@@ -1,5 +1,5 @@
 import { generateKeyPair, createHash, createPrivateKey, createSign, createPublicKey, publicEncrypt, constants } from "crypto";
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
 import { User } from "../models/user";
@@ -19,26 +19,27 @@ import { IIssueRefreshRequest, IRegisterRequest } from "../interfaces/jsonReques
 export const generatePublicPrivateKeyPair = (): Promise<IKeyPair> => {
     return new Promise((resolve, reject) => {
         generateKeyPair('rsa', {
-            modulusLength: 2048,
+            modulusLength: 1024,
             publicKeyEncoding: {
                 type: 'spki',
-                format: 'der'
+                format: 'pem'
             },
             privateKeyEncoding: {
                 type: 'pkcs1',
-                format: 'der'
+                format: 'pem'
             }
         }, (err, publicKey, privateKey) => {
             if(err) {
                 reject(err)
             }
             else {
-                // writeFileSync('private.pem', privateKey.toString('base64'))
-                // writeFileSync('public.pem', publicKey.toString('base64'))
+                // writeFileSync('private.pem', privateKey)
+                // writeFileSync('public.pem', publicKey)
                 const keyPair: IKeyPair = {
-                    publicKey: publicKey.toString('base64'),
-                    privateKey: privateKey.toString('base64')
+                    publicKey: publicKey.toString(),
+                    privateKey: privateKey.toString()
                 };
+                // console.log(keyPair)
                 resolve(keyPair);
             }
         });
@@ -59,15 +60,16 @@ export const hashInfo = (data: any): string => {
  */
 export const signData = (data: any): string => {
     // console.log(readFileSync(resolve('private.pem'), {encoding: 'ascii'}))
-    const privateKey = createPrivateKey({
-        key: Buffer.from(readFileSync(resolve('private.pem'), {encoding: 'ascii'}), 'base64'),
-        type: 'pkcs1',
-        format: 'der'
-    });
+    // const privateKey = createPrivateKey({
+    //     key: Buffer.from(readFileSync(resolve('private.pem'), 'utf-8'), 'base64'),
+    //     type: 'pkcs8',
+    //     format: 'pem'
+    // });
     console.log(JSON.stringify(data))
-    const sign = createSign('sha256')
+
+    const privateKey = readFileSync(resolve('private.pem'), 'utf-8');
+    const sign = createSign('RSA-SHA256')
     sign.update(JSON.stringify(data));
-    sign.end();
     return sign.sign(privateKey).toString('base64');
 }
 
