@@ -20,10 +20,12 @@ export const session = {
                     session.internal.vars.creds.sign = data.sign;
                     session.internal.vars.creds.dataHash = data.dataHash;
 
+                    console.log(data);
+
                     session.internal.funcs.callLoginListeners();
                     resolve();
                 })
-                .then((err) => {
+                .catch((err) => {
                     reject(err);
                 });
         });

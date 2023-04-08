@@ -1,6 +1,8 @@
 import { session } from './session';
-import { verify } from '../helpers/rsa';
+import { RSAVerifyData } from '../helpers/rsa/rsaVerification';
 import { getPublicKey } from '../helpers/apiCalls';
+import { base64ToArrayBuffer } from '../helpers/base64Formatter';
+import { importRSAPSSJWK } from '../helpers/rsa/rsaManageKeys';
 
 export const sendProtocol = {
     internal: {
@@ -16,21 +18,37 @@ export const sendProtocol = {
         }
     },
     init: () => {
-        sendProtocol.internal.variables.step=0;
-        sendProtocol.internal.variables.publicKey=session.getPubKey();
-        const data = {
-            cred: session.getPubCreds(),
-            profile: session.getSecretProfile()
-        }
-        sendProtocol.internal.variables.rawData=JSON.stringify(data)
-        sendProtocol.internal.variables.publicSignKey = getPublicKey();
+        return new Promise((resolve, reject) => {
+            sendProtocol.internal.variables.step=0;
+            sendProtocol.internal.variables.publicKey=session.getPubKey();
+            const data = {
+                cred: session.getPubCreds(),
+                profile: session.getSecretProfile()
+            }
+            sendProtocol.internal.variables.rawData=JSON.stringify(data)
+            getPublicKey().then(publicSignKey => {
+                sendProtocol.internal.variables.publicSignKey = publicSignKey;
+                console.log(sendProtocol.internal.variables.publicSignKey);
+                resolve();
+            })
+            .catch(err => {
+                reject()
+            });
+        })
     },
     getData: (data) => {
         const {publicKey, timePair, sign} = data;
         //verify data using sign
         console.log(JSON.stringify({publicKey, timePair}));
-        const verifyStatus = verify(JSON.stringify({publicKey, timePair}), sign, sendProtocol.internal.variables.publicSignKey);
-        console.log(verifyStatus);
+        // const parsedSign = base64ToArrayBuffer(sign);
+        const parsedSign = sign;
+        console.log(parsedSign);
+        console.log(sendProtocol.internal.variables.publicSignKey);
+        importRSAPSSJWK(sendProtocol.internal.variables.publicSignKey).then(publicSignKey => {
+            console.log(publicSignKey);
+            const verifyStatus = RSAVerifyData(publicSignKey, parsedSign, JSON.stringify({publicKey, timePair}));
+            console.log(verifyStatus);
+        })
         //store public key
         //create data log record
     }

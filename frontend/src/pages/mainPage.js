@@ -20,8 +20,10 @@ const MainPage = () => {
     const [bottomNavSelection, setBottomNavSelection] = useState(0);
 
     (() => {
-        sendProtocol.init();
-        sendProtocol.getData(session.getPubCreds());
+        sendProtocol.init()
+        .then(() => {
+            sendProtocol.getData(session.getPubCreds());
+        })
     })()
 
     return (
