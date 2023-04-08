@@ -21,20 +21,20 @@ export const importRSAPSSJWK = async (rawKeyPair) => {
     return publicKey;
 }
 
-export const importRSAOAEPJWK = async (rawKeyPair) => {
-    const publicKey = await importRSAJWK(rawKeyPair.publicKey, {
+export const importRSAOAEPJWKPublicKey = async (rawKey) => {
+    const publicKey = await importRSAJWK(rawKey, {
         name: 'RSA-OAEP',
         hash: 'SHA-256'
     }, ['encrypt']);
-    const privateKey = await importRSAJWK(rawKeyPair.privateKey, {
+
+    return publicKey;
+}
+
+export const importRSAOAEPJWKPrivateKey = async (rawKey) => {
+    const privateKey = await importRSAJWK(rawKey, {
         name: 'RSA-OAEP',
         hash: 'SHA-256'
     }, ['decrypt']);
 
-    const parsedKeys = {
-        publicKey: publicKey,
-        privateKey: privateKey
-    };
-
-    return parsedKeys;
+    return privateKey;
 }

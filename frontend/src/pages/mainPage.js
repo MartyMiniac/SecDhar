@@ -19,11 +19,20 @@ const BottomNavigationActionStyled = styled(BottomNavigationAction,)(`
 const MainPage = () => {
     const [bottomNavSelection, setBottomNavSelection] = useState(0);
 
-    (() => {
-        sendProtocol.init()
-        .then(() => {
-            sendProtocol.getData(session.getPubCreds());
-        })
+    (async () => {
+        // const EXE_MODE='DEV_DEFAULT';
+        // const EXE_MODE='DEV_TESTING';
+        const EXE_MODE='NONE';
+        if(EXE_MODE==='DEV_DEFAULT') {
+            await sendProtocol.init()
+            await sendProtocol.getData(session.getPubCreds());
+        }
+        if(EXE_MODE==='DEV_TESTING') {
+            const inp = JSON.parse(prompt('Enter the details to verify', ''));
+            await sendProtocol.init()
+            const result = await sendProtocol.getData(inp);
+            alert(JSON.stringify(result));
+        }
     })()
 
     return (

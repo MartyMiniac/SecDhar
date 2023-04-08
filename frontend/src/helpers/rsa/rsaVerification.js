@@ -2,7 +2,6 @@ const sc = window.crypto.subtle;
 
 export const RSAVerifyData = (publicKey, signature, data) => {
     return new Promise((resolve, reject) => {
-        // const encodedSignature = new TextEncoder().encode(signature);
         const encodedSignature = new Uint8Array(signature).buffer;
         const encodedData = new TextEncoder().encode(data);
 
