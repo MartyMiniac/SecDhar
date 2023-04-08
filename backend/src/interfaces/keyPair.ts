@@ -1,4 +1,6 @@
+import { webcrypto } from "node:crypto";
+
 export interface IKeyPair {
-    privateKey: string,
-    publicKey: string
+    privateKey: webcrypto.JsonWebKey,
+    publicKey: webcrypto.JsonWebKey
 }

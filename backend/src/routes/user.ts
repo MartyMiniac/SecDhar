@@ -42,7 +42,7 @@ router.post('/register', async (req: IRegisterRequest, res: Response) => {
                     data: {
                         keyPair: keyPair,
                         timePair: timePair,
-                        sign: signData({publicKey: keyPair.publicKey, timePair: timePair}),
+                        sign: await signData({publicKey: keyPair.publicKey, timePair: timePair}),
                         // sign: '1',
                         dataHash: hashInfo(req.body)
                     }

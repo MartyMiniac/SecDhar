@@ -4,7 +4,7 @@ import { ITimePair } from "./timePair"
 export interface IRegisterData {
     keyPair: IKeyPair,
     timePair: ITimePair,
-    sign: string,
+    sign: Array<any>,
     dataHash: string
 }
 
@@ -14,6 +14,6 @@ export interface IRequestRefreshData {
 }
 
 export interface IIssueRequestData { 
-    sign: string,
+    sign: Array<any>,
     timePair: ITimePair
 }

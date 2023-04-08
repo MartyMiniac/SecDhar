@@ -1,4 +1,4 @@
-import { generateKeyPair, createHash, createPrivateKey, createSign, createPublicKey, publicEncrypt, constants } from "crypto";
+import { generateKeyPair, createHash, createPrivateKey, createSign, createPublicKey, publicEncrypt, constants, webcrypto } from "crypto";
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 
@@ -12,37 +12,27 @@ import { IIssueRequestData, IRegisterData } from "../interfaces/jsonResponseData
 import { IRequestRefresh } from "../interfaces/requestRefresh";
 import { IJsonFailure, IJsonSuccess } from "../interfaces/jsonResponse";
 import { IIssueRefreshRequest, IRegisterRequest } from "../interfaces/jsonRequestData";
+import { generateKeyPairForEnc } from "../helpers/rsa/encryption";
+import { exportRSAJWK, importRSAPSSJWTFile } from "../helpers/rsa/keysManger";
+import { RSASignData } from "../helpers/rsa/verification";
 
 /**
  * generates the rsa public private key pair
  */
 export const generatePublicPrivateKeyPair = (): Promise<IKeyPair> => {
-    return new Promise((resolve, reject) => {
-        generateKeyPair('rsa', {
-            modulusLength: 1024,
-            publicKeyEncoding: {
-                type: 'spki',
-                format: 'pem'
-            },
-            privateKeyEncoding: {
-                type: 'pkcs1',
-                format: 'pem'
-            }
-        }, (err, publicKey, privateKey) => {
-            if(err) {
-                reject(err)
-            }
-            else {
-                // writeFileSync('private.pem', privateKey)
-                // writeFileSync('public.pem', publicKey)
-                const keyPair: IKeyPair = {
-                    publicKey: publicKey.toString(),
-                    privateKey: privateKey.toString()
-                };
-                // console.log(keyPair)
-                resolve(keyPair);
-            }
-        });
+    return new Promise<IKeyPair>((resolve, reject) => {
+        generateKeyPairForEnc()
+        .then(async (kp: webcrypto.CryptoKeyPair) => {
+            const expkp:IKeyPair = {
+                publicKey: await exportRSAJWK(kp.publicKey),
+                privateKey: await exportRSAJWK(kp.privateKey)
+            };
+
+            resolve(expkp);
+        })
+        .catch(err => {
+            reject(err);
+        })
     });
 }
 
@@ -58,19 +48,9 @@ export const hashInfo = (data: any): string => {
  * creates a digital sign of public key, creation date and expiration date
  * @param data public key, creation date and expiration date to be digitally signed
  */
-export const signData = (data: any): string => {
-    // console.log(readFileSync(resolve('private.pem'), {encoding: 'ascii'}))
-    // const privateKey = createPrivateKey({
-    //     key: Buffer.from(readFileSync(resolve('private.pem'), 'utf-8'), 'base64'),
-    //     type: 'pkcs8',
-    //     format: 'pem'
-    // });
-    console.log(JSON.stringify(data))
-
-    const privateKey = readFileSync(resolve('private.pem'), 'utf-8');
-    const sign = createSign('RSA-SHA256')
-    sign.update(JSON.stringify(data));
-    return sign.sign(privateKey).toString('base64');
+export const signData = async (data: any): Promise<Array<any>> => {
+    const keyPair = await importRSAPSSJWTFile('keys.json')
+    return RSASignData(keyPair.privateKey, JSON.stringify(data));
 }
 
 /**
@@ -126,12 +106,12 @@ export const updateRegistrationInfo = (data: IRegisterData): Promise<boolean> =>
     return new Promise(async (resolve, reject) => {
         let usr = new User({
             dataHash: data.dataHash,
-            publicKey: data.keyPair.publicKey
+            publicKey: JSON.stringify(data.keyPair.publicKey)
         });
         usr = await usr.save()
 
         const k = new Key({
-            publicKey: data.keyPair.publicKey,
+            publicKey: JSON.stringify(data.keyPair.publicKey),
             creationTime: data.timePair.creationTime,
             expirationTime: data.timePair.expirationTime,
             uid: usr._id
@@ -146,7 +126,8 @@ export const updateRegistrationInfo = (data: IRegisterData): Promise<boolean> =>
  * returns the goverment public key for the validation of the signature
  */
 export const returnPublicKey = (): string => {
-    return readFileSync(resolve('private.pem'), {encoding: 'ascii'});
+    const keys = JSON.parse(readFileSync(resolve('keys.json'), {encoding: 'utf-8'}));
+    return keys.publicKey
 }
 
 export const requestRefresh = (hash: string): Promise<IRequestRefresh> => {
@@ -200,7 +181,7 @@ const updateExpiry = (uid: string): Promise<IIssueRequestData> => {
         })
         await k?.remove();
         await nk.save()
-        resolve({sign: signData({publicKey: k?.publicKey, time: timePair}), timePair: timePair})
+        resolve({sign: await signData({publicKey: k?.publicKey, time: timePair}), timePair: timePair})
     })
 }
 
