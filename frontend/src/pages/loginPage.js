@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import { Container } from '@mui/system';
 import { FormControl, InputLabel, MenuItem, Paper, Select, Stack, TextField, Toolbar, Typography, Button, } from '@mui/material';
 import { useState } from 'react';
-import Alerts from '../components/alerts'
+
 const LoginPage = () => {
     const [name, setName] = useState('');
     const [aadhar, setAadhar] = useState('');

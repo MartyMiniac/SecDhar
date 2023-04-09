@@ -4,9 +4,7 @@
 
 html,
 body {
-    background: linear-gradient(45deg, #FF671F, #FFFFFF, #046A38)
-}
-
-#root {
-    height: 100vh;
+    background: linear-gradient(45deg, #FF671F, #FFFFFF, #046A38);
+    /* background-color: black; */
+    height: -webkit-fill-available;
 }

@@ -1,15 +1,6 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
+import { Box, Button, Grid, Dialog, DialogActions, DialogContent, DialogTitle, } from "@mui/material";
 import { useState } from "react";
-import QrcodeScanner from "./qrScanner";
-import QrcodeGenerator from "./qrGenerator";
+import DataWizard from "./dataWizard"
 
 const Buttons = () => {
   const [openScanner, setOpenScanner] = useState(false);
@@ -39,49 +30,36 @@ const Buttons = () => {
           "@media (max-width: 768px)": { width: "auto", height: "auto" },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            p: 1,
-            m: 1,
-          }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 1, m: 1, }} >
           <Button
             variant="contained"
             sx={{ bgcolor: "#510A32" }}
-            onClick={handleOpenScanner}
-          >
+            onClick={handleOpenScanner}>
             Request Data
           </Button>
           <Dialog open={openScanner} onClose={handleCloseScanner}>
             <DialogTitle>{"Scan Data"}</DialogTitle>
             <DialogContent>
-              {" "}
-              <QrcodeScanner />{" "}
+              <DataWizard steptype="request"/>
             </DialogContent>
             <DialogActions>
-              {" "}
-              <Button onClick={handleCloseScanner}>Close</Button>{" "}
+              <Button onClick={handleCloseScanner}>Close</Button>
             </DialogActions>
           </Dialog>
 
           <Button
             variant="contained"
             sx={{ bgcolor: "#510A32" }}
-            onClick={handleOpenGenerate}
-          >
+            onClick={handleOpenGenerate}>
             Send Data
           </Button>
           <Dialog open={openGenerate} onClose={handleCloseGenerate}>
             <DialogTitle>{"QR Code"}</DialogTitle>
             <DialogContent>
-              {" "}
-              <QrcodeGenerator />{" "}
+              <DataWizard steptype="send"/>
             </DialogContent>
             <DialogActions>
-              {" "}
-              <Button onClick={handleCloseGenerate}>Close</Button>{" "}
+              <Button onClick={handleCloseGenerate}>Close</Button>
             </DialogActions>
           </Dialog>
         </Box>
