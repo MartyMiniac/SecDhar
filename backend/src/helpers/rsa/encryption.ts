@@ -17,7 +17,7 @@ export const generateKeyPairForEnc = () => {
     });
 }
 export const RSAEncrypt = (publicKey: webcrypto.CryptoKey, msg: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<ArrayBuffer>((resolve, reject) => {
         //encode the message
         const encodedMsg: Uint8Array =  new TextEncoder().encode(msg);
 
@@ -26,7 +26,7 @@ export const RSAEncrypt = (publicKey: webcrypto.CryptoKey, msg: string) => {
         }, publicKey, encodedMsg)
         .then(cipher => {
             const decodedcipher = new TextDecoder().decode(cipher);
-            resolve(decodedcipher);
+            resolve(cipher);
         })
         .catch(err => {
             reject(err);

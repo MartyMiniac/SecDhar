@@ -13,8 +13,9 @@ import { IRequestRefresh } from "../interfaces/requestRefresh";
 import { IJsonFailure, IJsonSuccess } from "../interfaces/jsonResponse";
 import { IIssueRefreshRequest, IRegisterRequest } from "../interfaces/jsonRequestData";
 import { generateKeyPairForEnc } from "../helpers/rsa/encryption";
-import { exportRSAJWK, importRSAPSSJWTFile } from "../helpers/rsa/keysManger";
+import { exportRSAJWK, importRSAJWK, importRSAPSSJWTFile } from "../helpers/rsa/keysManger";
 import { RSASignData } from "../helpers/rsa/verification";
+import {RSAEncrypt} from "../helpers/rsa/encryption";
 
 /**
  * generates the rsa public private key pair
@@ -132,9 +133,11 @@ export const returnPublicKey = (): string => {
 
 export const requestRefresh = (hash: string): Promise<IRequestRefresh> => {
     return new Promise(async (resolve, reject) => {
+        //check if the user exists
         const usr = await User.findOne({
             dataHash: hash
         });
+        //if user doesnt exists the return a failed attempt
         if(usr===null) {
             resolve({
                 success: false,
@@ -142,26 +145,31 @@ export const requestRefresh = (hash: string): Promise<IRequestRefresh> => {
                 requestID: ''
             });
         }
+        //if user exists then continue
         else {
+            // generating a random string
             const secret = generateRandomString(20);
+            // creating a new refresh request object for verification later on
             let rqst = new RefreshRequest({
                 uid: usr._id,
                 secret: secret
             });
             rqst = await rqst.save();
-            const publicKey = createPublicKey({
-                key: Buffer.from(usr.publicKey, 'base64'),
-                type: 'spki',
-                format: 'der'
-            });
-            const encSecret = publicEncrypt({
-                key: publicKey,
-                padding: constants.RSA_PKCS1_OAEP_PADDING
-            }, Buffer.from(secret));
-            resolve({
-                success: true,
-                encryptedSecret: encSecret.toString('base64'),
-                requestID: rqst._id.toString()
+            console.log(usr);
+            //parsing the public key of the user
+            const publicKey = await importRSAJWK(JSON.parse(usr.publicKey), {
+                name: 'RSA-OAEP',
+                hash: 'SHA-256'
+            }, ['encrypt']);
+
+            //encrypting the genrated secret
+            RSAEncrypt(publicKey, secret).then(encSecret => {
+                console.log(encSecret)
+                resolve({
+                    success: true,
+                    encryptedSecret: Buffer.from(encSecret).toString('base64'),
+                    requestID: rqst._id.toString()
+                })
             })
         }
     })
