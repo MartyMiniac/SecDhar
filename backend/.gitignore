@@ -1,7 +1,0 @@
-/dist
-/node_modules
-private.pem
-public.pem
-.env
-creds.txt
-keys.json

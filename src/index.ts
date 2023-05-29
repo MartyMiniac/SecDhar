@@ -18,6 +18,7 @@ const options: cors.CorsOptions = {
 };
 
 
+app.use(express.static('static'))
 app.use(cors(options));
 app.use(express.json());
 app.use('/api/user', userRouter);
