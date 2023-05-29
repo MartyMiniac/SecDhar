@@ -4,6 +4,7 @@ import { connect } from "mongoose";
 import cors from "cors";
 
 import {router as userRouter} from './routes/user';
+import { router as viewsRouter } from "./routes/views";
 
 config();
 
@@ -21,6 +22,7 @@ const options: cors.CorsOptions = {
 app.use('/static', express.static('static'))
 app.use(cors(options));
 app.use(express.json());
+app.use('/', viewsRouter);
 app.use('/api/user', userRouter);
 
 connect(DB_URI)
