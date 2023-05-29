@@ -1,15 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css">
-    <script src="/static/vendor/jquery/js/jquery-3.7.0.min.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <title>SecDhar</title>
-</head>
-<body>
-    <h1>Index Page</h1>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="/static/vendor/bootstrap/css/bootstrap.min.css"
+        />
+        <title>SecDhar</title>
+        <style>
+            body {
+                height: 100%;
+                /* background-image: url('/static/img/bg.jpeg'); */
+                background-image: url('/static/svg/polygons.svg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+            }
+            #topNav {
+                background-color: #ffffff60;
+            }
+            #loginForm {
+                margin-top: 2.5em;
+                padding: 1em;
+                background-color: #fffffff0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav id="topNav" class="navbar navbar-light">
+            <span class="navbar-brand mb-0 h1">SecDhar</span>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div
+                    class="col h-100 d-flex align-items-center justify-content-center"
+                >
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="lgnfrm-inp-name">Name</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="lgnfrm-inp-name"
+                                placeholder="Enter name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="lgnfrm-inp-dob">Date of Birth</label>
+                            <input
+                                type="date"
+                                class="form-control"
+                                id="lgnfrm-inp-dob"
+                                placeholder="Enter date of birth"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="lgnfrm-inp-gender">Gender</label>
+                            <select class="form-control" id="lgnfrm-inp-gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lgnfrm-inp-address">Address</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="lgnfrm-inp-address"
+                                placeholder="Enter address"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="lgnfrm-inp-aadharno"
+                                >Aadhar Number</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="lgnfrm-inp-aadharno"
+                                placeholder="Enter aadhar number"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            id="loginBtn"
+                            class="btn btn-primary"
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script defer src="/static/vendor/jquery/js/jquery-3.7.0.min.js"></script>
+    <script
+        defer
+        src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"
+    ></script>
+    <script defer src="/static/js/utils/models.js"></script>
+    <script defer src="/static/js/utils/store.js"></script>
+    <script defer src="/static/js/utils/apiCalls.js"></script>
+    <script defer src="/static/js/utils/request.js"></script>
+    <script defer src="/static/js/index.html/loginFormHandler.js"></script>
+    <script></script>
 </html>
