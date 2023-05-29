@@ -10,3 +10,7 @@ export const router:Router = Router();
 router.get('/', (req, res) => {
     return res.sendFile(filePtr('index.html'))
 })
+
+router.get('/home', (req, res) => {
+    return res.sendFile(filePtr('homePage.html'))
+})

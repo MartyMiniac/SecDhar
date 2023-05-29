@@ -3,7 +3,6 @@ document.getElementById('loginBtn').onclick = (e) => {
     //verify form
     if(verifyForm()) {
         //perform api call
-        alert('success');
         const profile = Models.createUser(
             document.getElementById('lgnfrm-inp-name').value,
             document.getElementById('lgnfrm-inp-dob').value,
@@ -24,6 +23,7 @@ document.getElementById('loginBtn').onclick = (e) => {
             Credentials.setTimePair(data.timePair);
             Credentials.setSign(data.sign);
             Credentials.setDataHash(data.dataHash);
+            window.location.href='/home'
         })
         // UserProfile.setName(document.getElementById('lgnfrm-inp-name').value);
         // UserProfile.setDob(document.getElementById('lgnfrm-inp-dob').value);

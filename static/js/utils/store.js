@@ -84,7 +84,7 @@ const Credentials = {
         Credentials.__scopedSetItem('creationTime', data);
     },
     getCreationTime: () => {
-        Credentials.__scopedGetItem('creationTime');
+        return Credentials.__scopedGetItem('creationTime');
     },
 
     //expiration time
@@ -92,7 +92,7 @@ const Credentials = {
         Credentials.__scopedSetItem('expirationTime', data);
     },
     getExpirationTime: () => {
-        Credentials.__scopedGetItem('expirationTime');
+        return Credentials.__scopedGetItem('expirationTime');
     },
 
     //timePair
@@ -112,7 +112,7 @@ const Credentials = {
         Credentials.__scopedSetItem('sign', data);
     },
     getSign: () => {
-        return Credentials.__scopedGetItem('sign')
+        return Credentials.__scopedGetItem('sign').split(',').map(e=>parseInt(e))
     },
 
     //dataHash
