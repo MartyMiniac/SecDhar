@@ -21,7 +21,7 @@ const RsaManageKeys = {
     },
     
     importRSAOAEPJWKPublicKey: async (rawKey) => {
-        const publicKey = await importRSAJWK(rawKey, {
+        const publicKey = await RsaManageKeys.importRSAJWK(rawKey, {
             name: 'RSA-OAEP',
             hash: 'SHA-256'
         }, ['encrypt']);
@@ -30,7 +30,7 @@ const RsaManageKeys = {
     },
     
     importRSAOAEPJWKPrivateKey: async (rawKey) => {
-        const privateKey = await importRSAJWK(rawKey, {
+        const privateKey = await RsaManageKeys.importRSAJWK(rawKey, {
             name: 'RSA-OAEP',
             hash: 'SHA-256'
         }, ['decrypt']);
