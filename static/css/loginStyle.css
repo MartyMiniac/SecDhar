@@ -7,6 +7,7 @@ body {
     padding: 0;
     font-family: sans-serif;
     background: linear-gradient(#141e30, #243b55);
+    /* background-image: url('/static/svg/polygons.svg'); */
 }
 
 .login-box h2 {

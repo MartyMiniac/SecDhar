@@ -1,0 +1,77 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"
+    style="height: 100%; width: 100%; background: rgb(255, 255, 255);" width="220px" height="220px">
+    <g class="ldl-scale" style="transform-origin: 50% 50%; transform: rotate(0deg) scale(1, 1);">
+        <g class="ldl-ani">
+            <g class="ldl-layer">
+                <g class="ldl-ani">
+                    <g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.648148s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path stroke-miterlimit="10" stroke-linejoin="round"
+                                    stroke-linecap="round" stroke-width="3" stroke="#c33736"
+                                    fill="none"
+                                    d="M48.331 72.548c-2.334 4.042-9.991 8.451-13.476 6.439-3.485-2.012-3.495-10.848-1.162-14.89s7.502-5.427 11.544-3.093 5.428 7.502 3.094 11.544z"
+                                    style="stroke: rgb(195, 55, 54);"></path>
+                            </g>
+                        </g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.740741s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path d="M34.855 78.987L28.497 90" stroke-miterlimit="10"
+                                    stroke-linejoin="round" stroke-linecap="round" stroke-width="3"
+                                    stroke="#c33736" fill="none" style="stroke: rgb(195, 55, 54);"></path>
+                            </g>
+                        </g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.833333s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path d="M37.288 84.109l-2.495 4.322" stroke-miterlimit="10"
+                                    stroke-linejoin="round" stroke-linecap="round" stroke-width="3"
+                                    stroke="#c33736" fill="none" style="stroke: rgb(195, 55, 54);"></path>
+                            </g>
+                        </g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -0.925926s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path d="M29.203 79.441l-2.495 4.322" stroke-miterlimit="10"
+                                    stroke-linejoin="round" stroke-linecap="round" stroke-width="3"
+                                    stroke="#c33736" fill="none" style="stroke: rgb(195, 55, 54);"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <g class="ldl-layer">
+                <g class="ldl-ani">
+                    <g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -1.01852s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path stroke-miterlimit="10" stroke-linejoin="round"
+                                    stroke-linecap="round" stroke-width="3" stroke="#323232"
+                                    fill="none"
+                                    d="M50.105 76.912a5.685 5.685 0 0 0 4.474-2.828c.261-.452.447-.926.573-1.408l7.162 4.135 5.071-8.782-2.645-13.921L76.516 33.71l.746-17.336a6.112 6.112 0 0 0-9.386-5.419l-14.64 9.314-11.59 20.074-13.844 4.832-5.071 8.782 7.162 4.135c-.354.35-.672.748-.933 1.2a5.685 5.685 0 0 0-.253 5.2"
+                                    style="stroke: rgb(50, 50, 50);"></path>
+                            </g>
+                        </g>
+                        <g class="ldl-layer">
+                            <g class="ldl-ani"
+                                style="transform: scale(0.91); transform-origin: 50px 50px; animation: 1.11111s linear -1.11111s infinite normal forwards running breath-14584734-58e7-4bef-92da-958a8012dbdc;">
+                                <path d="M59.254 23.744l11.14 6.431" stroke-miterlimit="10"
+                                    stroke-linejoin="round" stroke-linecap="round" stroke-width="3"
+                                    stroke="#323232" fill="none" style="stroke: rgb(50, 50, 50);"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <metadata xmlns:d="https://loading.io/stock/">
+                <d:name>rocket</d:name>
+                <d:tags>rocket,launch,space shuttle,take off,fire,star ship,flight,future,technology</d:tags>
+                <d:license>by</d:license>
+                <d:slug>xtvyrq</d:slug>
+            </metadata>
+        </g>
+    </g>
+</svg>

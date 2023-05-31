@@ -1,0 +1,51 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    /* background: linear-gradient(#141e30, #243b55); */
+    background-image: url('/static/svg/polygons.svg');
+    color: #fff;
+}
+
+.contentDiv {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #243b5580;
+    align-items: center;
+}
+.contentDiv > * {
+    margin: 1em;
+    width: 18rem;
+}
+.contentDiv h2 {
+    margin: 10px;
+    text-align: center;
+}
+.userInfoTag {
+    padding: 1em;
+    background-color: #3e5167;
+    width: 18rem;
+}
+.protocolBtn {
+    background-color: #fff;
+    /* height: 5rem; */
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.protocolBtn > img {
+    width: 50px;
+    height: 50px;
+}
+.protocolBtn > p {
+    margin: 0;
+}
+
+#qrCodeImg {
+    max-width: 18rem;
+}

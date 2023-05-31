@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="eihmKeSGZ1a1"
+    viewBox="0 0 128 128" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-custom-link" />
+    <link xmlns="" type="text/css" rel="stylesheet" id="dark-mode-general-link" />
+    <style xmlns="" lang="en" type="text/css" id="dark-mode-custom-style" />
+    <style xmlns="" lang="en" type="text/css" id="dark-mode-native-style" />
+    <style xmlns="" lang="en" type="text/css" id="dark-mode-native-sheet" />
+    <style><![CDATA[#eihmKeSGZ1a2_ts {animation: eihmKeSGZ1a2_ts__ts 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a2_ts__ts { 0% {transform: translate(50.225752px,73.193661px) rotate(-14deg) scale(1,1);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 10% {transform: translate(50.225752px,73.193661px) rotate(-14deg) scale(1,0.524384)} 100% {transform: translate(50.225752px,73.193661px) rotate(-14deg) scale(1,0.524384)}} #eihmKeSGZ1a3_to {animation: eihmKeSGZ1a3_to__to 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a3_to__to { 0% {transform: translate(62.937629px,69.487835px);animation-timing-function: cubic-bezier(0.5,0.06,0.16,1)} 20% {transform: translate(42.75px,78.14px);animation-timing-function: cubic-bezier(0.385,0.005,0.805,0.29)} 35% {transform: translate(173.8px,31.55px)} 100% {transform: translate(173.8px,31.55px)}} #eihmKeSGZ1a3_tr {animation: eihmKeSGZ1a3_tr__tr 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a3_tr__tr { 0% {transform: rotate(0deg);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 10% {transform: rotate(8.609135deg)} 100% {transform: rotate(8.609135deg)}} #eihmKeSGZ1a3_ts {animation: eihmKeSGZ1a3_ts__ts 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a3_ts__ts { 0% {transform: scale(0.9,0.9);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 5% {transform: scale(0.8,0.8);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 10% {transform: scale(0.95,0.95)} 34.75% {transform: scale(0.95,0.95)} 35% {transform: scale(0.01,0.01)} 100% {transform: scale(0.01,0.01)}} #eihmKeSGZ1a3 {animation: eihmKeSGZ1a3_c_o 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a3_c_o { 0% {opacity: 1} 20% {opacity: 1;animation-timing-function: cubic-bezier(0.385,0.005,0.805,0.29)} 34.75% {opacity: 0} 35% {opacity: 0.01} 100% {opacity: 0.01}} #eihmKeSGZ1a7_tr {animation: eihmKeSGZ1a7_tr__tr 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a7_tr__tr { 0% {transform: translate(42.739298px,77.415448px) rotate(-30.906209deg);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 10% {transform: translate(42.739298px,77.415448px) rotate(0deg)} 100% {transform: translate(42.739298px,77.415448px) rotate(0deg)}} #eihmKeSGZ1a7_ts {animation: eihmKeSGZ1a7_ts__ts 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a7_ts__ts { 0% {transform: scale(1,0.351049);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 10% {transform: scale(1,1)} 100% {transform: scale(1,1)}} #eihmKeSGZ1a10_to {animation: eihmKeSGZ1a10_to__to 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a10_to__to { 0% {transform: translate(60.01132px,69.016259px)} 50% {transform: translate(60.01132px,69.016259px);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 62.5% {transform: translate(64.01132px,73.016259px)} 100% {transform: translate(64.01132px,73.016259px)}} #eihmKeSGZ1a10_ts {animation: eihmKeSGZ1a10_ts__ts 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a10_ts__ts { 0% {transform: scale(0,0)} 50% {transform: scale(0,0);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 62.5% {transform: scale(0.9,0.9)} 100% {transform: scale(0.9,0.9)}} #eihmKeSGZ1a11_ts {animation: eihmKeSGZ1a11_ts__ts 4000ms linear infinite normal forwards}@keyframes eihmKeSGZ1a11_ts__ts { 0% {transform: translate(61.170235px,65.741081px) scale(0,0)} 50% {transform: translate(61.170235px,65.741081px) scale(0,0);animation-timing-function: cubic-bezier(0.215,0.61,0.355,1)} 62.5% {transform: translate(61.170235px,65.741081px) scale(0.9,0.9)} 100% {transform: translate(61.170235px,65.741081px) scale(0.9,0.9)}}]]></style>
+    <defs>
+        <filter id="eihmKeSGZ1a4-filter" x="-400%" width="600%" y="-400%" height="600%">
+            <feGaussianBlur id="eihmKeSGZ1a4-filter-blur-0" stdDeviation="4,4" result="result" />
+        </filter>
+        <linearGradient id="eihmKeSGZ1a5-fill" x1="78.462172" y1="102.06442" x2="59.370283"
+            y2="40.418831" spreadMethod="pad" gradientUnits="userSpaceOnUse"
+            gradientTransform="matrix(1 0 0 1 0 0)">
+            <stop id="eihmKeSGZ1a5-fill-0" offset="0%" stop-color="rgb(0,186,112)" />
+            <stop id="eihmKeSGZ1a5-fill-1" offset="100%" stop-color="rgb(23,255,140)" />
+        </linearGradient>
+        <filter id="eihmKeSGZ1a10-filter" x="-400%" width="600%" y="-400%" height="600%">
+            <feGaussianBlur id="eihmKeSGZ1a10-filter-blur-0" stdDeviation="4,4" result="result" />
+        </filter>
+        <linearGradient id="eihmKeSGZ1a11-fill" x1="78.462172" y1="102.06442" x2="59.370283"
+            y2="40.418831" spreadMethod="pad" gradientUnits="userSpaceOnUse"
+            gradientTransform="matrix(1 0 0 1 0 0)">
+            <stop id="eihmKeSGZ1a11-fill-0" offset="0%" stop-color="rgb(0,186,112)" />
+            <stop id="eihmKeSGZ1a11-fill-1" offset="100%" stop-color="rgb(23,255,140)" />
+        </linearGradient>
+    </defs>
+    <g id="eihmKeSGZ1a2_ts" transform="translate(50.225752,73.193661) rotate(-14) scale(1,1)">
+        <g id="eihmKeSGZ1a2" transform="translate(-50.225752,-73.19366)">
+            <g id="eihmKeSGZ1a3_to" transform="translate(62.937629,69.487835)">
+                <g id="eihmKeSGZ1a3_tr" transform="rotate(0)">
+                    <g id="eihmKeSGZ1a3_ts" transform="scale(0.9,0.9)">
+                        <g id="eihmKeSGZ1a3" transform="translate(-52.853154,-71.732323)">
+                            <path id="eihmKeSGZ1a4"
+                                d="M74.07,93.21L91.7,41.37C92.186913,39.92903,91.814444,38.336593,90.738925,37.261075C89.663407,36.185556,88.07097,35.813087,86.63,36.3L34.79,53.93C33.259357,54.447956,32.190695,55.835998,32.081319,57.448197C31.971944,59.060395,32.843339,60.580056,34.29,61.3L51.43,69.87C53.014549,70.615089,54.896494,70.282746,56.13,69.04L71.69,53.48C72.471483,52.698517,73.738517,52.698517,74.52,53.48C75.301483,54.261483,75.301483,55.528517,74.52,56.31L58.88,72C57.661064,73.217742,57.35888,75.079197,58.13,76.62L66.7,93.71C67.419944,95.156661,68.939605,96.028056,70.551803,95.918681C72.164002,95.809305,73.552044,94.740643,74.07,93.21Z"
+                                transform="matrix(0.941056 0.338251 -0.338251 0.941056 19.684394 -4.078972)"
+                                opacity="0.4" filter="url(#eihmKeSGZ1a4-filter)" fill="rgb(0,0,0)"
+                                stroke="none" stroke-width="1" />
+                            <path id="eihmKeSGZ1a5"
+                                d="M74.07,93.21L91.7,41.37C92.186913,39.92903,91.814444,38.336593,90.738925,37.261075C89.663407,36.185556,88.07097,35.813087,86.63,36.3L34.79,53.93C33.259357,54.447956,32.190695,55.835998,32.081319,57.448197C31.971944,59.060395,32.843339,60.580056,34.29,61.3L51.43,69.87C53.014549,70.615089,54.896494,70.282746,56.13,69.04L71.69,53.48C72.471483,52.698517,73.738517,52.698517,74.52,53.48C75.301483,54.261483,75.301483,55.528517,74.52,56.31L58.88,72C57.661064,73.217742,57.35888,75.079197,58.13,76.62L66.7,93.71C67.419944,95.156661,68.939605,96.028056,70.551803,95.918681C72.164002,95.809305,73.552044,94.740643,74.07,93.21Z"
+                                transform="matrix(0.951057 0.309017 -0.309017 0.951057 14.29362 -10.202002)"
+                                fill="url(#eihmKeSGZ1a5-fill)" stroke="none" stroke-width="1" />
+                            <g id="eihmKeSGZ1a6" mask="url(#eihmKeSGZ1a8)">
+                                <g id="eihmKeSGZ1a7_tr"
+                                    transform="translate(42.739298,77.415448) rotate(-30.906209)">
+                                    <g id="eihmKeSGZ1a7_ts" transform="scale(1,0.351049)">
+                                        <path id="eihmKeSGZ1a7"
+                                            d="M45.947735,78.555281C45.947735,78.555281,43.721654,92.054172,43.507104,93.825639C43.04874,97.6102,44.588127,99.239844,45.653545,97.866173C47.231304,95.831928,48.017982,94.813098,48.017982,94.813098C48.017982,94.813098,45.937532,78.368526,45.947735,78.555281Z"
+                                            transform="translate(-45.955715,-78.655727)"
+                                            fill="rgb(8,212,122)" stroke="none" stroke-width="0.256" />
+                                    </g>
+                                </g>
+                                <mask id="eihmKeSGZ1a8" mask-type="luminance">
+                                    <path id="eihmKeSGZ1a9"
+                                        d="M42.492904,77.38726L46.205218,103.778489L39.593102,104.513739L36.161029,79.09367Q42.410838,77.469331,42.492904,77.38726Z"
+                                        transform="matrix(1 0 0 1 0.000001 0.000003)"
+                                        fill="rgb(255,255,255)" stroke="none" stroke-width="0.256" />
+                                </mask>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g id="eihmKeSGZ1a10_to" transform="translate(60.01132,69.016259)">
+        <g id="eihmKeSGZ1a10_ts" transform="scale(0,0)">
+            <path id="eihmKeSGZ1a10"
+                d="M74.07,93.21L91.7,41.37C92.186913,39.92903,91.814444,38.336593,90.738925,37.261075C89.663407,36.185556,88.07097,35.813087,86.63,36.3L34.79,53.93C33.259357,54.447956,32.190695,55.835998,32.081319,57.448197C31.971944,59.060395,32.843339,60.580056,34.29,61.3L51.43,69.87C53.014549,70.615089,54.896494,70.282746,56.13,69.04L71.69,53.48C72.471483,52.698517,73.738517,52.698517,74.52,53.48C75.301483,54.261483,75.301483,55.528517,74.52,56.31L58.88,72C57.661064,73.217742,57.35888,75.079197,58.13,76.62L66.7,93.71C67.419944,95.156661,68.939605,96.028056,70.551803,95.918681C72.164002,95.809305,73.552044,94.740643,74.07,93.21Z"
+                transform="translate(-61.99132,-66.008684)" opacity="0.4"
+                filter="url(#eihmKeSGZ1a10-filter)" fill="rgb(0,0,0)" stroke="none" stroke-width="1" />
+        </g>
+    </g>
+    <g id="eihmKeSGZ1a11_ts" transform="translate(61.170235,65.741081) scale(0,0)">
+        <path id="eihmKeSGZ1a11"
+            d="M74.07,93.21L91.7,41.37C92.186913,39.92903,91.814444,38.336593,90.738925,37.261075C89.663407,36.185556,88.07097,35.813087,86.63,36.3L34.79,53.93C33.259357,54.447956,32.190695,55.835998,32.081319,57.448197C31.971944,59.060395,32.843339,60.580056,34.29,61.3L51.43,69.87C53.014549,70.615089,54.896494,70.282746,56.13,69.04L71.69,53.48C72.471483,52.698517,73.738517,52.698517,74.52,53.48C75.301483,54.261483,75.301483,55.528517,74.52,56.31L58.88,72C57.661064,73.217742,57.35888,75.079197,58.13,76.62L66.7,93.71C67.419944,95.156661,68.939605,96.028056,70.551803,95.918681C72.164002,95.809305,73.552044,94.740643,74.07,93.21Z"
+            transform="translate(-61.99132,-66.008684)" fill="url(#eihmKeSGZ1a11-fill)"
+            stroke="none" stroke-width="1" />
+    </g>
+</svg>
