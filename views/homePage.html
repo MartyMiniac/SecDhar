@@ -1,59 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css" />
-    <title>SecDhar</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.min.css" />
+        <title>SecDhar</title>
 
-    <link rel="stylesheet" href="/static/css/homepageStyle.css">
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col h-100 d-flex align-items-center justify-content-center">
-                <div class="contentDiv">
-                    <h2>SecDhar</h2>
-                    <div class="row buttonBox">
-                        <button class="col protocolBtn" id="sendDataBtn">
-                            <p>
-                                Send Data
-                            </p>
-                            <img src="/static/img/send.png">
-                        </button>
-                        <button class="col protocolBtn" id="receiveDataBtn">
-                            <p>
-                                Receive Data
-                            </p>
-                            <img src="/static/img/receive.png">
-                        </button>
-                    </div>
-                    <div class="userInfoBox">
-                        <div class="card userInfoTag">
-                            <div class="class-body">
-                                <h5 class="card-title">My Info</h5>
-                                <p class="card-text" id="userInfoDisplay"></p>
+        <link rel="stylesheet" href="/static/css/homepageStyle.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col h-100 d-flex align-items-center justify-content-center">
+                    <div class="contentDiv">
+                        <h2>SecDhar</h2>
+                        <div class="row buttonBox">
+                            <button class="col protocolBtn" id="sendDataBtn" data-toggle="modal" data-target="#wizardModal">
+                                <p>Send Data</p>
+                                <img src="/static/img/send.png" />
+                            </button>
+                            <button class="col protocolBtn" id="receiveDataBtn" data-toggle="modal" data-target="#wizardModal">
+                                <p>Receive Data</p>
+                                <img src="/static/img/receive.png" />
+                            </button>
+                        </div>
+                        <div class="userInfoBox">
+                            <div class="card userInfoTag">
+                                <div class="class-body">
+                                    <h5 class="card-title">My Info</h5>
+                                    <p class="card-text" id="userInfoDisplay"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="qrCodeImg"></div>
                 </div>
             </div>
         </div>
-    </div>
-</body>
-<script defer src="/static/vendor/jquery/js/jquery-3.7.0.min.js"></script>
-<script defer src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script defer src="/static/vendor/qrcode/qrcode.min.js"></script>
-<script defer src="/static/js/utils/apiCalls.js"></script>
-<script defer src="/static/js/utils/localStoreOps.js"></script>
-<script defer src="/static/js/utils/models.js"></script>
-<script defer src="/static/js/utils/protocol.js"></script>
-<script defer src="/static/js/utils/request.js"></script>
-<script defer src="/static/js/utils/store.js"></script>
-<script defer src="/static/js/utils/rsa/rsaEncryption.js"></script>
-<script defer src="/static/js/utils/rsa/rsaManageKeys.js"></script>
-<script defer src="/static/js/utils/rsa/rsaVerification.js"></script>
-<script defer src="/static/js/homepage.html/dataDisplayHandler.js"></script>
+        <div class="modal fade" id="wizardModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Send Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="qrCodeImg"></div>
+                        <div id="qrCodeReader"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="modalNextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script defer src="/static/vendor/jquery/js/jquery-3.7.0.min.js"></script>
+    <script defer src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script defer src="/static/vendor/qrcode/qrcode.min.js"></script>
+    <script defer src="/static/vendor/html5-qrcode/html5-qrcode.min.js"></script>
+    <script defer src="/static/js/utils/apiCalls.js"></script>
+    <script defer src="/static/js/utils/localStoreOps.js"></script>
+    <script defer src="/static/js/utils/models.js"></script>
+    <script defer src="/static/js/utils/protocol.js"></script>
+    <script defer src="/static/js/utils/request.js"></script>
+    <script defer src="/static/js/utils/store.js"></script>
+    <script defer src="/static/js/utils/qrCodeGen.js"></script>
+    <script defer src="/static/js/utils/qrCodeScanner.js"></script>
+    <script defer src="/static/js/utils/rsa/rsaEncryption.js"></script>
+    <script defer src="/static/js/utils/rsa/rsaManageKeys.js"></script>
+    <script defer src="/static/js/utils/rsa/rsaVerification.js"></script>
+    <script defer src="/static/js/homepage.html/dataDisplayHandler.js"></script>
+    <script defer src="/static/js/homepage.html/buttonHandler.js"></script>
+    <script defer src="/static/js/homepage.html/wizard.js"></script>
 </html>

@@ -12,15 +12,15 @@ const PORT = process.env.PORT || 5000;
 const DB_URI = process.env.DB_URI || '';
 const app: Application = express();
 
-const allowedOrigins = ['http://localhost:3000'];
+// const allowedOrigins = ['*'];
 
-const options: cors.CorsOptions = {
-  origin: allowedOrigins
-};
+// const options: cors.CorsOptions = {
+//   origin: allowedOrigins
+// };
 
 
 app.use('/static', express.static('static'))
-app.use(cors(options));
+app.use(cors());
 app.use(express.json());
 app.use('/', viewsRouter);
 app.use('/api/user', userRouter);

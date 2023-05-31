@@ -1,5 +1,5 @@
 const Request = {
-    domain: 'http://localhost:5000',
+    domain: '',
     post: (path, body) => {
         return new Promise((resolve, reject) => {
             const postBody = JSON.stringify(body);

@@ -49,3 +49,7 @@ body {
 #qrCodeImg {
     max-width: 18rem;
 }
+
+.modal-dialog {
+    color: black;
+}
