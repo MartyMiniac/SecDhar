@@ -2,10 +2,10 @@ const wizard = {
     __activeProtocol: '',
     __nextStep: 0,
     __init: () => {
-        if(wizard.__activeProtocol===wizard.PROTOCOLS.SEND) {
+        if (wizard.__activeProtocol === wizard.PROTOCOLS.SEND) {
             sendData.init();
         }
-        else if(wizard.__activeProtocol===wizard.PROTOCOLS.RECEIVE) {
+        else if (wizard.__activeProtocol === wizard.PROTOCOLS.RECEIVE) {
             receiveData.init();
         }
     },
@@ -14,9 +14,9 @@ const wizard = {
         RECEIVE: 'RECEIVE'
     },
     next: () => {
-        if(wizard.__activeProtocol===wizard.PROTOCOLS.SEND) {
-            document.getElementById('modalLabel').innerText='Send Data';
-            switch(wizard.__nextStep) {
+        if (wizard.__activeProtocol === wizard.PROTOCOLS.SEND) {
+            document.getElementById('modalLabel').innerText = 'Send Data';
+            switch (wizard.__nextStep) {
                 case 0:
                     sendData.step1();
                     wizard.__nextStep++;
@@ -26,9 +26,9 @@ const wizard = {
                     break;
             }
         }
-        else if(wizard.__activeProtocol===wizard.PROTOCOLS.RECEIVE) {
-            document.getElementById('modalLabel').innerText='Receive Data';
-            switch(wizard.__nextStep) {
+        else if (wizard.__activeProtocol === wizard.PROTOCOLS.RECEIVE) {
+            document.getElementById('modalLabel').innerText = 'Receive Data';
+            switch (wizard.__nextStep) {
                 case 0:
                     receiveData.step1();
                     wizard.__nextStep++;
@@ -45,17 +45,17 @@ const wizard = {
     },
     init: () => {
         wizard.__init();
-        wizard.__activeProtocol='';
-        wizard.__nextStep=0;
+        wizard.__activeProtocol = '';
+        wizard.__nextStep = 0;
     },
     set: (data) => {
-        wizard.__activeProtocol=data;
+        wizard.__activeProtocol = data;
     },
-    nextButtonVisible: () => {        
-        document.getElementById('modalNextBtn').style.visibility='visible';
+    nextButtonVisible: () => {
+        document.getElementById('modalNextBtn').style.visibility = 'visible';
     },
     nextButtonInvisible: () => {
-        document.getElementById('modalNextBtn').style.visibility='hidden';
+        document.getElementById('modalNextBtn').style.visibility = 'hidden';
     }
 }
 
@@ -70,19 +70,20 @@ const sendData = {
         qrCodeScanner.scanQR((txt, result) => {
             console.log(txt);
             console.log(result);
-            
+
             sendProtocol.step1(txt).then((value) => {
                 sendProtocol.step2(value).then(value2 => {
                     console.log(value2);
-                    sendData.__step1PassThrough=value2.substring(value2.length/2, value2.length);
-                    qrCodeGen.generateQR(value2.substring(0, value2.length/2));
+                    sendData.__step1PassThrough = value2.substring(value2.length / 2, value2.length);
+                    qrCodeGen.generateQR(value2.substring(0, value2.length / 2));
                     wizard.nextButtonVisible();
                 })
             })
         })
-        
+
     },
     step2: () => {
+        addRow();
         wizard.nextButtonInvisible();
         qrCodeGen.clean();
         qrCodeGen.generateQR(sendData.__step1PassThrough);
@@ -104,22 +105,41 @@ const receiveData = {
         wizard.nextButtonInvisible();
         qrCodeGen.clean();
         qrCodeScanner.scanQR((txt, result) => {
-            alert(txt);
+            // alert(txt);
             console.log(txt);
             console.log(result);
-            receiveData.__step2PassThrough=txt;
+            receiveData.__step2PassThrough = txt;
             wizard.nextButtonVisible();
         })
     },
     step3: () => {
+        addRow();
         wizard.nextButtonInvisible();
         qrCodeScanner.clean();
         qrCodeScanner.scanQR((txt, result) => {
             console.log(txt);
             console.log(result);
-            receiveData.__step2PassThrough+=txt;
+            receiveData.__step2PassThrough += txt;
             receiveProtocol.step2(receiveData.__step2PassThrough).then(data => {
-                alert(JSON.stringify(data));
+                if (Object.values(data)[0] === true) {
+                    const objValue = Object.values(data)[1];
+                    console.log(
+                    `Name: ${objValue['name']},
+                    DoB: ${objValue['dob']},
+                    Gender: ${objValue['gender']},
+                    Address: ${objValue['address']},
+                    Aadhar No: ${objValue['aadharNo']}`,
+                    );
+                    swal('Data Shared',
+                    `The data exchanged is successful.
+                    Name: ${objValue['name']},
+                    DoB: ${objValue['dob']},
+                    Gender: ${objValue['gender']},
+                    Address: ${objValue['address']},
+                    Aadhar No: ${objValue['aadharNo']}
+                    `,
+                    'success')
+                }
             })
         })
     }
