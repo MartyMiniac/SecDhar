@@ -5,7 +5,7 @@ const qrCodeScanner = {
     setQRBox: (size) => {
         qrCodeScanner.__qrBox=size;
     },
-    generateQR: (onSuccessHandler) => {
+    scanQR: (onSuccessHandler) => {
         qrCodeScanner.__qrcodeobj = new Html5QrcodeScanner(qrCodeScanner.__targetDivID, {
             fps: 10,
             qrbox: qrCodeScanner.__qrBox
